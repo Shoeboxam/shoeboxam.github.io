@@ -1,1 +1,4491 @@
-Hello World
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Protocol Documentation</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700,400italic"/>
+    <style>
+      body {
+        width: 60em;
+        margin: 1em auto;
+        color: #222;
+        font-family: "Ubuntu", sans-serif;
+        padding-bottom: 4em;
+      }
+
+      h1 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      h2 {
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+        margin: 1.5em 0;
+      }
+
+      h3 {
+        font-weight: normal;
+        border-bottom: 1px solid #aaa;
+        padding-bottom: 0.5ex;
+      }
+
+      a {
+        text-decoration: none;
+        color: #567e25;
+      }
+
+      table {
+        width: 100%;
+        font-size: 80%;
+        border-collapse: collapse;
+      }
+
+      thead {
+        font-weight: 700;
+        background-color: #dcdcdc;
+      }
+
+      tbody tr:nth-child(even) {
+        background-color: #fbfbfb;
+      }
+
+      td {
+        border: 1px solid #ccc;
+        padding: 0.5ex 2ex;
+      }
+
+      td p {
+        text-indent: 1em;
+        margin: 0;
+      }
+
+      td p:nth-child(1) {
+        text-indent: 0;  
+      }
+
+       
+      .field-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .field-table td:nth-child(3) {  
+        width: 6em;
+      }
+      .field-table td:nth-child(4) {  
+        width: auto;
+      }
+
+       
+      .extension-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(3) {  
+        width: 10em;
+      }
+      .extension-table td:nth-child(4) {  
+        width: 5em;
+      }
+      .extension-table td:nth-child(5) {  
+        width: auto;
+      }
+
+       
+      .enum-table td:nth-child(1) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(2) {  
+        width: 10em;
+      }
+      .enum-table td:nth-child(3) {  
+        width: auto;
+      }
+
+       
+      .scalar-value-types-table tr {
+        height: 3em;
+      }
+
+       
+      #toc-container ul {
+        list-style-type: none;
+        padding-left: 1em;
+        line-height: 180%;
+        margin: 0;
+      }
+      #toc > li > a {
+        font-weight: bold;
+      }
+
+       
+      .file-heading {
+        width: 100%;
+        display: table;
+        border-bottom: 1px solid #aaa;
+        margin: 4em 0 1.5em 0;
+      }
+      .file-heading h2 {
+        border: none;
+        display: table-cell;
+      }
+      .file-heading a {
+        text-align: right;
+        display: table-cell;
+      }
+
+       
+      .badge {
+        width: 1.6em;
+        height: 1.6em;
+        display: inline-block;
+
+        line-height: 1.6em;
+        text-align: center;
+        font-weight: bold;
+        font-size: 60%;
+
+        color: #89ba48;
+        background-color: #dff0c8;
+
+        margin: 0.5ex 1em 0.5ex -1em;
+        border: 1px solid #fbfbfb;
+        border-radius: 1ex;
+      }
+    </style>
+
+    
+    <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  </head>
+
+  <body>
+
+    <h1 id="title">Protocol Documentation</h1>
+
+    <h2>Table of Contents</h2>
+
+    <div id="toc-container">
+      <ul id="toc">
+        
+          
+          <li>
+            <a href="#core.proto">core.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.DataAvailableRequest"><span class="badge">M</span>DataAvailableRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.DataAvailableResponse"><span class="badge">M</span>DataAvailableResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.DescribeSolutionRequest"><span class="badge">M</span>DescribeSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.DescribeSolutionResponse"><span class="badge">M</span>DescribeSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.EndSearchSolutionsRequest"><span class="badge">M</span>EndSearchSolutionsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.EndSearchSolutionsResponse"><span class="badge">M</span>EndSearchSolutionsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.FitSolutionRequest"><span class="badge">M</span>FitSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.FitSolutionResponse"><span class="badge">M</span>FitSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetFitSolutionResultsRequest"><span class="badge">M</span>GetFitSolutionResultsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetFitSolutionResultsResponse"><span class="badge">M</span>GetFitSolutionResultsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetFitSolutionResultsResponse.ExposedOutputsEntry"><span class="badge">M</span>GetFitSolutionResultsResponse.ExposedOutputsEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetProduceSolutionResultsRequest"><span class="badge">M</span>GetProduceSolutionResultsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetProduceSolutionResultsResponse"><span class="badge">M</span>GetProduceSolutionResultsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetProduceSolutionResultsResponse.ExposedOutputsEntry"><span class="badge">M</span>GetProduceSolutionResultsResponse.ExposedOutputsEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetScoreSolutionResultsRequest"><span class="badge">M</span>GetScoreSolutionResultsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetScoreSolutionResultsResponse"><span class="badge">M</span>GetScoreSolutionResultsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetSearchSolutionsResultsRequest"><span class="badge">M</span>GetSearchSolutionsResultsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.GetSearchSolutionsResultsResponse"><span class="badge">M</span>GetSearchSolutionsResultsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.HelloRequest"><span class="badge">M</span>HelloRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.HelloResponse"><span class="badge">M</span>HelloResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.ListPrimitivesRequest"><span class="badge">M</span>ListPrimitivesRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ListPrimitivesResponse"><span class="badge">M</span>ListPrimitivesResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.LoadFittedSolutionRequest"><span class="badge">M</span>LoadFittedSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.LoadFittedSolutionResponse"><span class="badge">M</span>LoadFittedSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.LoadSolutionRequest"><span class="badge">M</span>LoadSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.LoadSolutionResponse"><span class="badge">M</span>LoadSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitiveStepDescription"><span class="badge">M</span>PrimitiveStepDescription</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitiveStepDescription.HyperparamsEntry"><span class="badge">M</span>PrimitiveStepDescription.HyperparamsEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProduceSolutionRequest"><span class="badge">M</span>ProduceSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProduceSolutionResponse"><span class="badge">M</span>ProduceSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.Progress"><span class="badge">M</span>Progress</a>
+                </li>
+              
+                <li>
+                  <a href="#.SaveFittedSolutionRequest"><span class="badge">M</span>SaveFittedSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.SaveFittedSolutionResponse"><span class="badge">M</span>SaveFittedSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.SaveSolutionRequest"><span class="badge">M</span>SaveSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.SaveSolutionResponse"><span class="badge">M</span>SaveSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.Score"><span class="badge">M</span>Score</a>
+                </li>
+              
+                <li>
+                  <a href="#.ScorePredictionsRequest"><span class="badge">M</span>ScorePredictionsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ScorePredictionsResponse"><span class="badge">M</span>ScorePredictionsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.ScoreSolutionRequest"><span class="badge">M</span>ScoreSolutionRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.ScoreSolutionResponse"><span class="badge">M</span>ScoreSolutionResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.ScoringConfiguration"><span class="badge">M</span>ScoringConfiguration</a>
+                </li>
+              
+                <li>
+                  <a href="#.SearchSolutionsRequest"><span class="badge">M</span>SearchSolutionsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.SearchSolutionsResponse"><span class="badge">M</span>SearchSolutionsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.SolutionExportRequest"><span class="badge">M</span>SolutionExportRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.SolutionExportResponse"><span class="badge">M</span>SolutionExportResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.SolutionRunUser"><span class="badge">M</span>SolutionRunUser</a>
+                </li>
+              
+                <li>
+                  <a href="#.SolutionSearchScore"><span class="badge">M</span>SolutionSearchScore</a>
+                </li>
+              
+                <li>
+                  <a href="#.SplitDataRequest"><span class="badge">M</span>SplitDataRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.SplitDataResponse"><span class="badge">M</span>SplitDataResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.StepDescription"><span class="badge">M</span>StepDescription</a>
+                </li>
+              
+                <li>
+                  <a href="#.StepProgress"><span class="badge">M</span>StepProgress</a>
+                </li>
+              
+                <li>
+                  <a href="#.StopSearchSolutionsRequest"><span class="badge">M</span>StopSearchSolutionsRequest</a>
+                </li>
+              
+                <li>
+                  <a href="#.StopSearchSolutionsResponse"><span class="badge">M</span>StopSearchSolutionsResponse</a>
+                </li>
+              
+                <li>
+                  <a href="#.SubpipelineStepDescription"><span class="badge">M</span>SubpipelineStepDescription</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.ProgressState"><span class="badge">E</span>ProgressState</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#core.proto-extensions"><span class="badge">X</span>File-level Extensions</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.Core"><span class="badge">S</span>Core</a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#pipeline.proto">pipeline.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.ContainerArgument"><span class="badge">M</span>ContainerArgument</a>
+                </li>
+              
+                <li>
+                  <a href="#.ContainerArguments"><span class="badge">M</span>ContainerArguments</a>
+                </li>
+              
+                <li>
+                  <a href="#.DataArgument"><span class="badge">M</span>DataArgument</a>
+                </li>
+              
+                <li>
+                  <a href="#.DataArguments"><span class="badge">M</span>DataArguments</a>
+                </li>
+              
+                <li>
+                  <a href="#.PipelineDescription"><span class="badge">M</span>PipelineDescription</a>
+                </li>
+              
+                <li>
+                  <a href="#.PipelineDescriptionInput"><span class="badge">M</span>PipelineDescriptionInput</a>
+                </li>
+              
+                <li>
+                  <a href="#.PipelineDescriptionOutput"><span class="badge">M</span>PipelineDescriptionOutput</a>
+                </li>
+              
+                <li>
+                  <a href="#.PipelineDescriptionStep"><span class="badge">M</span>PipelineDescriptionStep</a>
+                </li>
+              
+                <li>
+                  <a href="#.PipelineDescriptionUser"><span class="badge">M</span>PipelineDescriptionUser</a>
+                </li>
+              
+                <li>
+                  <a href="#.PipelineSource"><span class="badge">M</span>PipelineSource</a>
+                </li>
+              
+                <li>
+                  <a href="#.PlaceholderPipelineDescriptionStep"><span class="badge">M</span>PlaceholderPipelineDescriptionStep</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitiveArgument"><span class="badge">M</span>PrimitiveArgument</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitiveArguments"><span class="badge">M</span>PrimitiveArguments</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitivePipelineDescriptionStep"><span class="badge">M</span>PrimitivePipelineDescriptionStep</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitivePipelineDescriptionStep.ArgumentsEntry"><span class="badge">M</span>PrimitivePipelineDescriptionStep.ArgumentsEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitivePipelineDescriptionStep.HyperparamsEntry"><span class="badge">M</span>PrimitivePipelineDescriptionStep.HyperparamsEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitiveStepArgument"><span class="badge">M</span>PrimitiveStepArgument</a>
+                </li>
+              
+                <li>
+                  <a href="#.PrimitiveStepHyperparameter"><span class="badge">M</span>PrimitiveStepHyperparameter</a>
+                </li>
+              
+                <li>
+                  <a href="#.StepInput"><span class="badge">M</span>StepInput</a>
+                </li>
+              
+                <li>
+                  <a href="#.StepOutput"><span class="badge">M</span>StepOutput</a>
+                </li>
+              
+                <li>
+                  <a href="#.SubpipelinePipelineDescriptionStep"><span class="badge">M</span>SubpipelinePipelineDescriptionStep</a>
+                </li>
+              
+                <li>
+                  <a href="#.ValueArgument"><span class="badge">M</span>ValueArgument</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#primitive.proto">primitive.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Primitive"><span class="badge">M</span>Primitive</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#problem.proto">problem.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.DataAugmentation"><span class="badge">M</span>DataAugmentation</a>
+                </li>
+              
+                <li>
+                  <a href="#.ForecastingHorizon"><span class="badge">M</span>ForecastingHorizon</a>
+                </li>
+              
+                <li>
+                  <a href="#.Problem"><span class="badge">M</span>Problem</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProblemDescription"><span class="badge">M</span>ProblemDescription</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProblemInput"><span class="badge">M</span>ProblemInput</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProblemPerformanceMetric"><span class="badge">M</span>ProblemPerformanceMetric</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProblemPrivilegedData"><span class="badge">M</span>ProblemPrivilegedData</a>
+                </li>
+              
+                <li>
+                  <a href="#.ProblemTarget"><span class="badge">M</span>ProblemTarget</a>
+                </li>
+              
+              
+              
+              
+            </ul>
+          </li>
+        
+          
+          <li>
+            <a href="#value.proto">value.proto</a>
+            <ul>
+              
+                <li>
+                  <a href="#.Value"><span class="badge">M</span>Value</a>
+                </li>
+              
+                <li>
+                  <a href="#.ValueDict"><span class="badge">M</span>ValueDict</a>
+                </li>
+              
+                <li>
+                  <a href="#.ValueDict.ItemsEntry"><span class="badge">M</span>ValueDict.ItemsEntry</a>
+                </li>
+              
+                <li>
+                  <a href="#.ValueError"><span class="badge">M</span>ValueError</a>
+                </li>
+              
+                <li>
+                  <a href="#.ValueList"><span class="badge">M</span>ValueList</a>
+                </li>
+              
+                <li>
+                  <a href="#.ValueRaw"><span class="badge">M</span>ValueRaw</a>
+                </li>
+              
+              
+                <li>
+                  <a href="#.NullValue"><span class="badge">E</span>NullValue</a>
+                </li>
+              
+              
+              
+            </ul>
+          </li>
+        
+        <li><a href="#scalar-value-types">Scalar Value Types</a></li>
+      </ul>
+    </div>
+
+    
+      
+      <div class="file-heading">
+        <h2 id="core.proto">core.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".DataAvailableRequest">DataAvailableRequest</h3>
+        <p>Inform TA2 about data being available, triggering any potential internal data processing by TA2.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_agent</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Some string identifying the name and version of the TA3 system. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Shall be set to &#34;protocol_version&#34; above. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>time_bound</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Desired upper limit of time spend processing this data, expressed in minutes.
+Default value of 0 (and any negative number) signifies no time bound. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>priority</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Value stating the priority for processing of this data. Larger number is higher
+priority. If unspecified, by default priority is 0. Negative numbers have
+still lower priority. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".DataAvailableResponse">DataAvailableResponse</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id=".DescribeSolutionRequest">DescribeSolutionRequest</h3>
+        <p>Request a detailed description of the found solution.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".DescribeSolutionResponse">DescribeSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>pipeline</td>
+                  <td><a href="#.PipelineDescription">PipelineDescription</a></td>
+                  <td></td>
+                  <td><p>A pipeline description. Nested pipelines should be fully described as well. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#.StepDescription">StepDescription</a></td>
+                  <td>repeated</td>
+                  <td><p>Each step in a pipeline has description. These are reported in the order of steps in
+the pipeline. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".EndSearchSolutionsRequest">EndSearchSolutionsRequest</h3>
+        <p>Ends the search and releases all resources associated with the solution search.</p><p>If the call is made in parallel with a running search and results are being streamed,</p><p>the search is stopped and the "GetSearchSolutionsResults" stream is closed by an AutoML system</p><p>(as happens when the search is concluded on its own, or when a search is stopped</p><p>by "StopSearchSolutions"). Found solution IDs during the search are no longer valid</p><p>after this call.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>search_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".EndSearchSolutionsResponse">EndSearchSolutionsResponse</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id=".FitSolutionRequest">FitSolutionRequest</h3>
+        <p>Fit the solution on given inputs. If a solution is already fitted on inputs this is a NOOP</p><p>(if no additional outputs should be exposed). This can happen when a TA2 simultaneously</p><p>fits the solution as part of the solution search phase.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>expose_outputs</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>List of data references of step outputs which should be exposed to the TA3 system.
+If you want to expose outputs of the whole pipeline (e.g., predictions themselves),
+list them here as well. These can be recursive data references like
+&#34;steps.1.steps.4.produce&#34; to point to an output inside a sub-pipeline.
+Data references for step outputs which otherwise would not be computed during
+pipeline execution can also be provided to force them to be computed and exposed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>expose_value_types</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Which value types should be used for exposing outputs. If not provided, the allowed
+value types list from the search solutions call is used instead.
+The order is important as TA2 system will try value types in order until one works out,
+or an error will be returned instead of the value. An error exposing a value does not
+stop the overall process. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#.SolutionRunUser">SolutionRunUser</a></td>
+                  <td>repeated</td>
+                  <td><p>Any users associated with this call itself. Optional. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>random_seed</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Seed for pseudorandom number generator. Note, not setting this value
+means always using seed of 0. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".FitSolutionResponse">FitSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>request_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetFitSolutionResultsRequest">GetFitSolutionResultsRequest</h3>
+        <p>Get the latest state of fitting the solution and start receiving any further</p><p>new updates to the state as well.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>request_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetFitSolutionResultsResponse">GetFitSolutionResultsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>progress</td>
+                  <td><a href="#.Progress">Progress</a></td>
+                  <td></td>
+                  <td><p>Overall process progress. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#.StepProgress">StepProgress</a></td>
+                  <td>repeated</td>
+                  <td><p>The list contains progress for each step in the pipeline, in order.
+List can be incomplete while the process is in progress. Systems can provide
+steps only at the end (when &#34;progress&#34; equals COMPLETED) and not during running. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>exposed_outputs</td>
+                  <td><a href="#.GetFitSolutionResultsResponse.ExposedOutputsEntry">GetFitSolutionResultsResponse.ExposedOutputsEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>A mapping between data references of step outputs and values. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fitted_solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The fitted solution ID, once progress = COMPLETED. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetFitSolutionResultsResponse.ExposedOutputsEntry">GetFitSolutionResultsResponse.ExposedOutputsEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetProduceSolutionResultsRequest">GetProduceSolutionResultsRequest</h3>
+        <p>Get the latest state of producing the fitted solution and start receiving any further</p><p>new updates to the state as well.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>request_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetProduceSolutionResultsResponse">GetProduceSolutionResultsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>progress</td>
+                  <td><a href="#.Progress">Progress</a></td>
+                  <td></td>
+                  <td><p>Overall process progress. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#.StepProgress">StepProgress</a></td>
+                  <td>repeated</td>
+                  <td><p>The list contains progress for each step in the pipeline, in order.
+List can be incomplete while the process is in progress. Systems can provide
+steps only at the end (when &#34;progress&#34; equals COMPLETED) and not during running. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>exposed_outputs</td>
+                  <td><a href="#.GetProduceSolutionResultsResponse.ExposedOutputsEntry">GetProduceSolutionResultsResponse.ExposedOutputsEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>A mapping between data references of step outputs and values. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetProduceSolutionResultsResponse.ExposedOutputsEntry">GetProduceSolutionResultsResponse.ExposedOutputsEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetScoreSolutionResultsRequest">GetScoreSolutionResultsRequest</h3>
+        <p>Get all score results computed until now and start receiving any</p><p>new score results computed as well.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>request_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetScoreSolutionResultsResponse">GetScoreSolutionResultsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>progress</td>
+                  <td><a href="#.Progress">Progress</a></td>
+                  <td></td>
+                  <td><p>Overall process progress. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scores</td>
+                  <td><a href="#.Score">Score</a></td>
+                  <td>repeated</td>
+                  <td><p>List of score results. List can be incomplete while the process is in progress. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetSearchSolutionsResultsRequest">GetSearchSolutionsResultsRequest</h3>
+        <p>Get all solutions presently identified by the search and start receiving any</p><p>further solutions also found as well.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>search_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".GetSearchSolutionsResultsResponse">GetSearchSolutionsResultsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>progress</td>
+                  <td><a href="#.Progress">Progress</a></td>
+                  <td></td>
+                  <td><p>Overall process progress, not progress per solution. While solutions are being found and
+returned, or scores computed and updated, progress state should be kept at &#34;RUNNING&#34;. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>done_ticks</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>A measure of progress during search. It can be any number of internal steps or
+actions an AutoML system is doing during search. It can be even number of how many candidate
+solutions were already examined. It does not even have to be an integer.
+How regularly a change to this number is reported to a client is left to an AutoML system&#39;s discretion,
+but a rule of thumb is at least once a minute if the number changes. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>all_ticks</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>If an AutoML system knows how many internal steps or actions are there, it can set this field.
+This can also be updated through time if more (or even less) internal steps or
+actions are determined to be necessary. If this value is non-zero, then it should
+always hold that &#34;done_ticks&#34; &lt;= &#34;all_ticks&#34;. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>internal_score</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Internal score for this solution between 0.0 and 1.0 where 1.0 is the highest score.
+There is no other meaning to this score and it does not necessary depend on scores
+listed in the problem description. Optional.
+Because this field is optional, if omitted the default value will be 0. But 0 is a
+valid value for this field. Because of that you should never omit the field.
+If you do not have internal score to provide, use NaN for the value of this field
+to signal that. When solution cannot be scored (i.e., the fully specified pipeline
+used as a template is not a standard pipeline) internal score does not have to be
+provided. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scores</td>
+                  <td><a href="#.SolutionSearchScore">SolutionSearchScore</a></td>
+                  <td>repeated</td>
+                  <td><p>An AutoML system might be able to provide more meaningful scores as well, depending on its
+approach to solution search. Moreover, even the same AutoML system might not use the same scoring
+approach for all of its solutions. Optional. When solution cannot be scored (i.e., the
+fully specified pipeline used as a template is not a standard pipeline) score does
+not have to be provided. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".HelloRequest">HelloRequest</h3>
+        <p>Identify a TA2 and get supported features.</p><p>This call is also suitable for a ping/pong call to check that the gRPC connection to the</p><p>TA2 is ready.</p>
+
+        
+
+        
+      
+        <h3 id=".HelloResponse">HelloResponse</h3>
+        <p>This response signifies that the TA2 is ready to begin a search.</p><p>For evaluation purposes, it is advisable that TA2's not respond positively until</p><p>they have the primitives library loaded and are ready for to begin a search, otherwise</p><p>the time required to load the library will count against them by the dummy TA3.</p><p>Starting to listen on gRPC port signals that system is running.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_agent</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Some string identifying the name and version of the TA2 system. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Shall be set to &#34;protocol_version&#34; above. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>allowed_value_types</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>List of value types that a TA3 system can use to communicate values to a TA2 system.
+The order is important as a TA3 system should try value types in order until one works
+out, or an error will be returned instead of the value. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supported_extensions</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>List of API extensions that a TA2 supports. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supported_task_keywords</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supported_performance_metrics</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supported_evaluation_methods</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>supported_search_features</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Supported search features by TA2. Can be an empty list if TA2 does not respect suggested
+search features for any search request, or does not support any search features.
+(TA2 can always ignore a suggested search feature for a particular search request,
+even if a search feature is listed here.) </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ListPrimitivesRequest">ListPrimitivesRequest</h3>
+        <p>List all primitives known to TA2, their IDs, versions, names, and digests. Using this</p><p>information a TA3 should know which primitives may be put into a pipeline template.</p><p>To narrow down potential primitives to use a TA3 can also ask a TA2 to do a solution</p><p>search and then observe which primitives the TA2 is using. If more metadata about primitives</p><p>is needed, then a TA3 can use the results of this call to map primitives to metadata</p><p>(from Python code or primitive annotations) on its own.</p>
+
+        
+
+        
+      
+        <h3 id=".ListPrimitivesResponse">ListPrimitivesResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>primitives</td>
+                  <td><a href="#.Primitive">Primitive</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".LoadFittedSolutionRequest">LoadFittedSolutionRequest</h3>
+        <p>Load a fitted solution that was saved before.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>fitted_solution_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI pointing to a directory containing a saved fitted solution. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".LoadFittedSolutionResponse">LoadFittedSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>fitted_solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>ID of a fitted solution which was loaded. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".LoadSolutionRequest">LoadSolutionRequest</h3>
+        <p>Load a solution that was saved before.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI pointing to a directory containing a saved solution. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".LoadSolutionResponse">LoadSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>ID of a solution which was loaded. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitiveStepDescription">PrimitiveStepDescription</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>hyperparams</td>
+                  <td><a href="#.PrimitiveStepDescription.HyperparamsEntry">PrimitiveStepDescription.HyperparamsEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Selected value for free pipeline hyper-parameters. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitiveStepDescription.HyperparamsEntry">PrimitiveStepDescription.HyperparamsEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProduceSolutionRequest">ProduceSolutionRequest</h3>
+        <p>Produce (execute) the solution on given inputs. A solution has to have been fitted for this</p><p>to be possible (even if in cases where this is just created by transformations).</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>fitted_solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>expose_outputs</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>List of data references of step outputs which should be exposed to the TA3 system.
+If you want to expose outputs of the whole pipeline (e.g., predictions themselves),
+list them here as well. These can be recursive data references like
+&#34;steps.1.steps.4.produce&#34; to point to an output inside a sub-pipeline.
+Data references for step outputs which otherwise would not be computed during
+pipeline execution can also be provided to force them to be computed and exposed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>expose_value_types</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Which value types should be used for exposing outputs. If not provided, the allowed
+value types list from the search solutions call is used instead.
+The order is important as the TA2 system will try value types in order until one works
+out, or an error will be returned instead of the value. An error exposing a value does
+not stop the overall process. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#.SolutionRunUser">SolutionRunUser</a></td>
+                  <td>repeated</td>
+                  <td><p>Any users associated with this call itself. Optional. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProduceSolutionResponse">ProduceSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>request_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".Progress">Progress</h3>
+        <p>After "state" becomes "COMPLETED" or "ERRORED" stream closes.</p><p>The granularity of progress updates is not specified by the API at this time. Some systems</p><p>might be updating frequently and provide many updates of the progress of a whole process</p><p>as well as individual pipeline steps. Some systems might just report these high-level</p><p>progress states once, not doing any progress updates in the meantime.  The "status" field</p><p>should contain information to supplement the progress state, such as specific failure details</p><p>in the case of an "ERRORED" state being returned.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>state</td>
+                  <td><a href="#.ProgressState">ProgressState</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>status</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>start</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Set only after state becomes &#34;RUNNING&#34;. If it never really properly runs, but errors
+when attempted to run, then it should be the timestamp of the error. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>end</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>Set only when state is &#34;COMPLETED&#34; or &#34;ERRORED&#34;. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SaveFittedSolutionRequest">SaveFittedSolutionRequest</h3>
+        <p>Save a fitted solution that can be loaded later.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>fitted_solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>ID of a fitted solution to save. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SaveFittedSolutionResponse">SaveFittedSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>fitted_solution_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI pointing to a directory containing a saved fitted solution. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SaveSolutionRequest">SaveSolutionRequest</h3>
+        <p>Save a solution that can be loaded later.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>ID of a solution to save. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SaveSolutionResponse">SaveSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI pointing to a directory containing a saved solution. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".Score">Score</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>metric</td>
+                  <td><a href="#.ProblemPerformanceMetric">ProblemPerformanceMetric</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>fold</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>When doing multiple folds, which fold is this score associated with, 0-based.
+We do not aggregate scores across folds on the AutoML side, but expose everything to the client.
+If scoring was not done as part of the cross-validation, then it can be returned
+as the first and only fold, in which case the value of this field should be 0. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>random_seed</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Random seed used to run a pipeline for this score to be obtained.
+Note, not setting this value means always using seed of 0. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>normalized</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p>The normalized value of the scoring metric. Value is from the [0, 1] interval, where higher is better. Optional. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ScorePredictionsRequest">ScorePredictionsRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>predictions</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p>Predictions computed on the data. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>score_input</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p>Score data containing the true labels on the same split for comparison. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>problem</td>
+                  <td><a href="#.ProblemDescription">ProblemDescription</a></td>
+                  <td></td>
+                  <td><p>Problem definition. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>metric</td>
+                  <td><a href="#.ProblemPerformanceMetric">ProblemPerformanceMetric</a></td>
+                  <td>repeated</td>
+                  <td><p>List of metrics. If not empty, those metrics will be computed by the TA2 instead of the ones
+listed in the problem. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ScorePredictionsResponse">ScorePredictionsResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>scores</td>
+                  <td><a href="#.Score">Score</a></td>
+                  <td>repeated</td>
+                  <td><p>Scores for the predictions. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ScoreSolutionRequest">ScoreSolutionRequest</h3>
+        <p>Request solution to be scored given inputs. Inputs have to be Dataset container values</p><p>and pipeline outputs have to be predictions. It can internally run multiple fit + produce</p><p>runs of the pipeline on permutations of inputs data (e.g., for cross-validation). This is</p><p>also why we cannot expose outputs here. When solution cannot be scored (i.e., the fully</p><p>specified pipeline used as a template is not a standard pipeline), this call does</p><p>not have to be supported.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>performance_metrics</td>
+                  <td><a href="#.ProblemPerformanceMetric">ProblemPerformanceMetric</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#.SolutionRunUser">SolutionRunUser</a></td>
+                  <td>repeated</td>
+                  <td><p>Any users associated with this call itself. Optional. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>configuration</td>
+                  <td><a href="#.ScoringConfiguration">ScoringConfiguration</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ScoreSolutionResponse">ScoreSolutionResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>request_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ScoringConfiguration">ScoringConfiguration</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>method</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The evaluation method to use. Standard values are required to
+be supported and are:
+* &#34;HOLDOUT&#34;
+* &#34;K_FOLD&#34;
+
+In addition, &#34;RANKING&#34; evaluation method should be also supported.
+&#34;RANKING&#34; evaluation method can be used for a rank of a solution
+among all found solutions of a given &#34;SearchSolutions&#34; call.
+Invalid to use before the &#34;SearchSolutions&#34; call, of which the
+solution is part of, has successfully completed or has been stopped.
+Only possible with &#34;RANK&#34; performance metric.
+
+The following additional evaluation methods are defined to allow
+expressing internal evaluation methods used by an AutoML system during solution
+search. If any method being used is missing, feel free to request
+it to be added.
+* &#34;LEAVE_ONE_OUT&#34;
+* &#34;PREDICTION&#34;
+  Instead of really scoring, an AutoML system might predict the score only.
+* &#34;TRAINING_DATA&#34;
+  Training data is reused to test as well.
+
+No standard value will ever start with &#34;_&#34;, so if you worry about
+potential conflicts with future standard values, consider starting
+your non-standard values with &#34;_&#39;. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>folds</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Number of folds made, if applicable. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>train_test_ratio</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>If applicable, the ratio between the train and test data and represents the proportion of
+the input data to include in the train split. The rest is included in the test split.
+E.g., &#34;train_test_ratio == 0.8&#34; would mean that 80% of the whole data becomes the train split
+and 20% of the whole data becomes the test split. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>shuffle</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Shuffle data? Set to true if employed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>random_seed</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Value for random seed to use for shuffling. Note, not setting this value
+means always using seed of 0. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>stratified</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Do stratified k-fold? Set to true if employed. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SearchSolutionsRequest">SearchSolutionsRequest</h3>
+        <p>Starts a new solution search. Found solutions have not necessary been fitted on the provided</p><p>inputs. Problem description and inputs are used only to help guide the search process.</p><p>Consider any found solutions to be just a static description of solutions at this stage.</p><p>Multiple parallel solution searches can happen at the same time.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>user_agent</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Some string identifying the name and version of the AutoML system. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Shall be set to &#34;protocol_version&#34; above. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>time_bound_search</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Desired upper limit of time for solution search, expressed in minutes.
+Default value of 0 (and any negative number) signifies no time bound.
+See also time_bound_run. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>priority</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Value stating the priority of the search. If multiple searches are queued then highest
+priority (largest number) should be started next by the AutoML system. Primarily used to sort any
+queue, but no further guarantee that the AutoML system can give more resources to high priority
+searches. If unspecified, by default search will have priority 0. Negative numbers have
+still lower priority. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>allowed_value_types</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Which value types can an AutoML system use to communicate values to a client?
+The order is important as the AutoML system will try value types in order until one works out,
+or an error will be returned instead of the value. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>problem</td>
+                  <td><a href="#.ProblemDescription">ProblemDescription</a></td>
+                  <td></td>
+                  <td><p>Problem description to use for the solution search. Problem description is optional
+with fully specified pipelines which the client provides. If still provided, an AutoML system
+should use it to set semantic types on target columns and any other use of a problem description
+for the needs of running a pipeline. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>template</td>
+                  <td><a href="#.PipelineDescription">PipelineDescription</a></td>
+                  <td></td>
+                  <td><p>A pipeline template to use for search or to execute. If template is omitted, then a
+regular solution search is done. If template consists only of one placeholder step,
+then a regular solution search is done to replace that step. If there is no placeholder
+step, but template describes a full pipeline with free hyper-parameters, then this
+call becomes a hyper-parameter tuning call over free hyper-parameters and found solutions
+share the same pipeline, but different hyper-parameter configurations (unless
+&#34;use_default_values_for_free_hyperparams&#34; is set to true). If there is no
+placeholder step and all hyper-parameters are fixed as part of the pipeline, then this
+call only checks the given template and returns the solution with same pipeline back, to
+be executed. This allows fixed computations to be done on data, for example, pipeline can
+consist of only one primitive with fixed hyper-parameters to execute that one primitive.
+Moreover, such fully specified pipelines with fixed hyper-parametres can have any
+inputs and any outputs. Otherwise pipelines have to be from a Dataset container value
+to predictions Pandas dataframe.
+While there are all these options possible, only a subset has to be supported by all
+systems:
+ - Omitted templates,
+ - Partial pipelines with one placeholder step, at the last step in the pipeline template,
+ - Fully specified pipelines without free hyper-parameters, or with free hyper-parameters
+   and &#34;use_default_values_for_free_hyperparams&#34; set to true.
+See the Pipeline section of the README for more details. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td>repeated</td>
+                  <td><p>Pipeline inputs used during solution search. They have to point to Dataset container
+values. Order matters as each input is mapped to a template&#39;s input in order. Optional
+for templates without a placeholder and with all hyper-parameters fixed. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>time_bound_run</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Desire upper limit of time for one pass of the pipeline run expressed in minutes.
+Expressed at time of search, an AutoML system should limit the search to solutions
+that would not take longer than this for one pass of the pipeline run.
+Default value of 0 (and any negative number) signifies no time bound.
+This can also functionally be used as the time bound for scoring also. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>rank_solutions_limit</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Suggested maximum number of solutions to rank. Default is 0. If it is 0, it means
+no ranking of found solutions is done and no limit on number of found solutions is set.
+An AutoML system can still provide &#34;RANK&#34; score as part of &#34;scores&#34; field if ranking approach
+the AutoML system uses still allows to stream found solutions as they are found.
+If value of this field is not 0, the behavior of this call changes:
+ - &#34;time_bound_search&#34; becomes a time bound for both search and ranking.
+   The AutoML system decides how to divide the time between searching and ranking.
+ - The AutoML system is required to provide &#34;RANK&#34; score as part of &#34;scores&#34; field in
+   messages &#34;GetSearchSolutionsResultsResponse&#34;.
+ - The AutoML system can make all found solutions available only at the end of the call.
+   If ranking approach used by the AutoML system allows for that, the AutoML system
+   can still stream found solutions (and their ranks) during whole call.
+ - Calling &#34;StopSearchSolutions&#34; stops both search and ranking processes,
+   but the AutoML system can quickly return ranked solutions up to that point,
+   if possible, before closing the &#34;GetSearchSolutionsResults&#34; stream. Similarly
+   for &#34;EndSearchSolutions&#34;, but that is less useful.
+ - The AutoML system can still return more solutions than the limit. The limit only signals
+   that the AutoML system does not have to rank and return more solutions than the limit,
+   which is useful when ranking is an expensive operation. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>random_seed</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Random seed used to initiate search.  Note, not setting this value means
+always using seed of 0. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>use_default_values_for_free_hyperparams</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>If set to true, during search an AutoML system is suggested to not do hyper-parameter tuning
+of free hyper-parameters but use their default values. It might be that the AutoML system
+operates searches for both the pipeline and hyper-parameter values at the same
+time and flag cannot be easily respected, in that case this flag can be ignored by the AutoML system.
+When template is provided and contains free hyper-parameters but no placeholders,
+then setting this flag to true means that for all free hyper-parameters in the
+template default values should be used. This allows a client to not have to fix
+values for all free hyper-parameters in the template itself, to obtain a
+fully specified pipelines without free hyper-parameters.
+Generally applies only to tuning hyper-parameters. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>search_features</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Suggested search features to use to an AutoML system, from ones supported by
+the AutoML system as provided in &#34;supported_search_features&#34; of the &#34;HelloResponse&#34;.
+The AutoML system can ignore any suggestion. When not provided or when ignored,
+the AutoML system can use any search features, or even search features not
+listed in &#34;supported_search_feature&#34;. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SearchSolutionsResponse">SearchSolutionsResponse</h3>
+        <p>Call returns immediately with the ID. Use "GetFoundSolutions" call to get results.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>search_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An ID identifying this solution search. This string should be at least 22 characters
+long to ensure enough entropy to not be guessable. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SolutionExportRequest">SolutionExportRequest</h3>
+        <p>Exports a solution for evaluation purposes based on evaluation specifications.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>solution_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Found solution to export. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>rank</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p>Solution rank to be used for the exported solution. Rank is a non-negative floating-point number.
+Lower numbers represent better solutions. Each exported solution should have
+a different rank. TA3 should make sure not to repeat ranks. Filenames of exported files are
+left to be chosen by the TA2 system, but all exported files should be inside a directory
+with a name equal to the search ID of the search the exported solution belongs to. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SolutionExportResponse">SolutionExportResponse</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id=".SolutionRunUser">SolutionRunUser</h3>
+        <p>User associated with the run of the solution.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A UUID of the user. It does not have to map to any real ID, just that it is possible
+to connect multiple solution actions by the same user together, if necessary. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>chosen</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p>Was this run because solution was chosen by this user. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>reason</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Textual reason provided by the user why the run was chosen by this user. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SolutionSearchScore">SolutionSearchScore</h3>
+        <p>Description of an AutoML system score done during solution search. Because there is a wide range of</p><p>potential approaches an AutoML system can use to score candidate solutions this might not capture what</p><p>your AutoML system is doing. Feel free to request additions to be able to describe your approach.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>scoring_configuration</td>
+                  <td><a href="#.ScoringConfiguration">ScoringConfiguration</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scores</td>
+                  <td><a href="#.Score">Score</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SplitDataRequest">SplitDataRequest</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>input</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p>The input dataset to be split. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>scoring_configuration</td>
+                  <td><a href="#.ScoringConfiguration">ScoringConfiguration</a></td>
+                  <td></td>
+                  <td><p>How to perform the split. Note that only &#34;HOLDOUT&#34; and &#34;K_FOLD&#34; make sense for the
+EvaluationMethod. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>allowed_value_types</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Which value types should be used for outputs.
+The order is important as the TA2 system will try value types in order until one works
+out, or an error will be returned instead of the value. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>problem</td>
+                  <td><a href="#.ProblemDescription">ProblemDescription</a></td>
+                  <td></td>
+                  <td><p>The problem, which is necessary for some splitting methods like stratified splits. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SplitDataResponse">SplitDataResponse</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>train_output</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>test_output</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>score_output</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StepDescription">StepDescription</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>primitive</td>
+                  <td><a href="#.PrimitiveStepDescription">PrimitiveStepDescription</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pipeline</td>
+                  <td><a href="#.SubpipelineStepDescription">SubpipelineStepDescription</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StepProgress">StepProgress</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>progress</td>
+                  <td><a href="#.Progress">Progress</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#.StepProgress">StepProgress</a></td>
+                  <td>repeated</td>
+                  <td><p>If step is a sub-pipeline, then this list contains progress for each step in the
+sub-pipeline, in order.
+List can be incomplete while the process is in progress. Systems can provide
+steps only at the end (when &#34;progress&#34; equals COMPLETED) and not during running. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StopSearchSolutionsRequest">StopSearchSolutionsRequest</h3>
+        <p>Stops the search but leaves all currently found solutions available.</p><p>If the call is made in parallel with a running search and results are being streamed,</p><p>the "GetSearchSolutionsResults" stream is closed by an AutoML system (as happens when the search</p><p>is concluded on its own). Search cannot be re-started after it has been stopped.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>search_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StopSearchSolutionsResponse">StopSearchSolutionsResponse</h3>
+        <p></p>
+
+        
+
+        
+      
+        <h3 id=".SubpipelineStepDescription">SubpipelineStepDescription</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#.StepDescription">StepDescription</a></td>
+                  <td>repeated</td>
+                  <td><p>Each step in a sub-pipeline has a description. These are reported in the order of steps
+in the sub-pipeline. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id=".ProgressState">ProgressState</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>PROGRESS_UNKNOWN</td>
+                <td>0</td>
+                <td><p>Default value. Not to be used.</p></td>
+              </tr>
+            
+              <tr>
+                <td>PENDING</td>
+                <td>1</td>
+                <td><p>The process has been scheduled but is pending execution.</p></td>
+              </tr>
+            
+              <tr>
+                <td>RUNNING</td>
+                <td>2</td>
+                <td><p>The process is currently running. There can be multiple messages with this state
+(while the process is running).</p></td>
+              </tr>
+            
+              <tr>
+                <td>COMPLETED</td>
+                <td>3</td>
+                <td><p>The process completed and final results are available.</p></td>
+              </tr>
+            
+              <tr>
+                <td>ERRORED</td>
+                <td>4</td>
+                <td><p>The process failed.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+        <h3 id="core.proto-extensions">File-level Extensions</h3>
+        <table class="extension-table">
+          <thead>
+            <tr><td>Extension</td><td>Type</td><td>Base</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>protocol_version</td>
+                <td><a href="#string">string</a></td>
+                <td><a href="#google.protobuf.FileOptions">.google.protobuf.FileOptions</a></td>
+                <td>54100</td>
+                <td><p>54100 is from the range reserved for internal use within individual organizations.
+If we make this protocol public, we should obtain globally unique field number from Google.</p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+        <h3 id=".Core">Core</h3>
+        <p>See each message's comments for information about each particular call.</p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Method Name</td><td>Request Type</td><td>Response Type</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>SearchSolutions</td>
+                <td><a href="#.SearchSolutionsRequest">.SearchSolutionsRequest</a></td>
+                <td><a href="#.SearchSolutionsResponse">.SearchSolutionsResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetSearchSolutionsResults</td>
+                <td><a href="#.GetSearchSolutionsResultsRequest">.GetSearchSolutionsResultsRequest</a></td>
+                <td><a href="#.GetSearchSolutionsResultsResponse">.GetSearchSolutionsResultsResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>EndSearchSolutions</td>
+                <td><a href="#.EndSearchSolutionsRequest">.EndSearchSolutionsRequest</a></td>
+                <td><a href="#.EndSearchSolutionsResponse">.EndSearchSolutionsResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>StopSearchSolutions</td>
+                <td><a href="#.StopSearchSolutionsRequest">.StopSearchSolutionsRequest</a></td>
+                <td><a href="#.StopSearchSolutionsResponse">.StopSearchSolutionsResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DescribeSolution</td>
+                <td><a href="#.DescribeSolutionRequest">.DescribeSolutionRequest</a></td>
+                <td><a href="#.DescribeSolutionResponse">.DescribeSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ScoreSolution</td>
+                <td><a href="#.ScoreSolutionRequest">.ScoreSolutionRequest</a></td>
+                <td><a href="#.ScoreSolutionResponse">.ScoreSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetScoreSolutionResults</td>
+                <td><a href="#.GetScoreSolutionResultsRequest">.GetScoreSolutionResultsRequest</a></td>
+                <td><a href="#.GetScoreSolutionResultsResponse">.GetScoreSolutionResultsResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>FitSolution</td>
+                <td><a href="#.FitSolutionRequest">.FitSolutionRequest</a></td>
+                <td><a href="#.FitSolutionResponse">.FitSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetFitSolutionResults</td>
+                <td><a href="#.GetFitSolutionResultsRequest">.GetFitSolutionResultsRequest</a></td>
+                <td><a href="#.GetFitSolutionResultsResponse">.GetFitSolutionResultsResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ProduceSolution</td>
+                <td><a href="#.ProduceSolutionRequest">.ProduceSolutionRequest</a></td>
+                <td><a href="#.ProduceSolutionResponse">.ProduceSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>GetProduceSolutionResults</td>
+                <td><a href="#.GetProduceSolutionResultsRequest">.GetProduceSolutionResultsRequest</a></td>
+                <td><a href="#.GetProduceSolutionResultsResponse">.GetProduceSolutionResultsResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SolutionExport</td>
+                <td><a href="#.SolutionExportRequest">.SolutionExportRequest</a></td>
+                <td><a href="#.SolutionExportResponse">.SolutionExportResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>DataAvailable</td>
+                <td><a href="#.DataAvailableRequest">.DataAvailableRequest</a></td>
+                <td><a href="#.DataAvailableResponse">.DataAvailableResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ListPrimitives</td>
+                <td><a href="#.ListPrimitivesRequest">.ListPrimitivesRequest</a></td>
+                <td><a href="#.ListPrimitivesResponse">.ListPrimitivesResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>Hello</td>
+                <td><a href="#.HelloRequest">.HelloRequest</a></td>
+                <td><a href="#.HelloResponse">.HelloResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SaveSolution</td>
+                <td><a href="#.SaveSolutionRequest">.SaveSolutionRequest</a></td>
+                <td><a href="#.SaveSolutionResponse">.SaveSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>LoadSolution</td>
+                <td><a href="#.LoadSolutionRequest">.LoadSolutionRequest</a></td>
+                <td><a href="#.LoadSolutionResponse">.LoadSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SaveFittedSolution</td>
+                <td><a href="#.SaveFittedSolutionRequest">.SaveFittedSolutionRequest</a></td>
+                <td><a href="#.SaveFittedSolutionResponse">.SaveFittedSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>LoadFittedSolution</td>
+                <td><a href="#.LoadFittedSolutionRequest">.LoadFittedSolutionRequest</a></td>
+                <td><a href="#.LoadFittedSolutionResponse">.LoadFittedSolutionResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>SplitData</td>
+                <td><a href="#.SplitDataRequest">.SplitDataRequest</a></td>
+                <td><a href="#.SplitDataResponse">.SplitDataResponse</a> stream</td>
+                <td><p></p></td>
+              </tr>
+            
+              <tr>
+                <td>ScorePredictions</td>
+                <td><a href="#.ScorePredictionsRequest">.ScorePredictionsRequest</a></td>
+                <td><a href="#.ScorePredictionsResponse">.ScorePredictionsResponse</a></td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+
+        
+    
+      
+      <div class="file-heading">
+        <h2 id="pipeline.proto">pipeline.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".ContainerArgument">ContainerArgument</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Data reference. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ContainerArguments">ContainerArguments</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".DataArgument">DataArgument</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Data reference. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".DataArguments">DataArguments</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PipelineDescription">PipelineDescription</h3>
+        <p>Pipeline description matches the D3M pipeline description.</p><p>It serves two purposes: describing found pipelines by an AutoML system to a client, and communicating</p><p>pipeline templates by a client to an AutoML system. Because of this some fields are reasonable only in</p><p>one of those uses. They are marked with "AutoML" or "client" in the comment, for fields which are primarily</p><p>to be set only by an AutoML system or only by a client, respectively.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>AutoML: UUID of the pipeline. Templates do not have IDs. But a client might provide it for a fully
+specified pipeline. It does not necessary have to match &#34;solution_id&#34; from
+&#34;ListSolutionsResponse&#34; and other related messages. Those IDs are about whole solutions
+(pipeline, potentially fitted, with set hyper-parameters). This here ID is about this
+particular ID description. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>source</td>
+                  <td><a href="#.PipelineSource">PipelineSource</a></td>
+                  <td></td>
+                  <td><p>&#34;schema&#34; field is not needed because it is fixed by the D3M AutoML RPC protocol version.
+System which generated a pipeline or a template. Optional. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>created</td>
+                  <td><a href="#google.protobuf.Timestamp">google.protobuf.Timestamp</a></td>
+                  <td></td>
+                  <td><p>AutoML: Timestamp when created. Templates do not have this timestamp. A cleint might provide it for
+a fully specified pipeline. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Human friendly name of the pipeline. For templates it can be a hint to
+an AutoML system how to name found pipelines. Optional. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Human friendly description of the pipeline. Optional. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#.PipelineDescriptionUser">PipelineDescriptionUser</a></td>
+                  <td>repeated</td>
+                  <td><p>List of users associated with the creation of the template and consequently of the pipeline.
+An AutoML system can store this information into metalearning database. The AutoML system is not
+really expected to use this information during pipeline search. The AutoML system should not have to understand
+the client&#39;s users, mapping between users and pipeline search IDs is something the client should handle. Optional. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.PipelineDescriptionInput">PipelineDescriptionInput</a></td>
+                  <td>repeated</td>
+                  <td><p>In most cases inputs are datasets. But if a client wants to jut run a primitive, it can send a
+template with only that primitive in the template, and then pass anything to its inputs during
+execution. Here, we are describing possible inputs to the pipeline or template. Order matters. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>outputs</td>
+                  <td><a href="#.PipelineDescriptionOutput">PipelineDescriptionOutput</a></td>
+                  <td>repeated</td>
+                  <td><p>Available outputs of the pipeline or template. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>steps</td>
+                  <td><a href="#.PipelineDescriptionStep">PipelineDescriptionStep</a></td>
+                  <td>repeated</td>
+                  <td><p>Steps defining the pipeline. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>digest</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PipelineDescriptionInput">PipelineDescriptionInput</h3>
+        <p>Possible input to the pipeline or template.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Human friendly name of the input. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PipelineDescriptionOutput">PipelineDescriptionOutput</h3>
+        <p>Available output of the pipeline or template.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Human friendly name of the output. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Data reference, probably of an output of a step. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PipelineDescriptionStep">PipelineDescriptionStep</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>primitive</td>
+                  <td><a href="#.PrimitivePipelineDescriptionStep">PrimitivePipelineDescriptionStep</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pipeline</td>
+                  <td><a href="#.SubpipelinePipelineDescriptionStep">SubpipelinePipelineDescriptionStep</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>placeholder</td>
+                  <td><a href="#.PlaceholderPipelineDescriptionStep">PlaceholderPipelineDescriptionStep</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PipelineDescriptionUser">PipelineDescriptionUser</h3>
+        <p>User associated with the creation of the template/pipeline, or selection of a primitive.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Globally unique ID for this user. It can be opaque, but it should identify the same user
+across sessions. Consider using UUID variant 5 with namespace set to the name of your system
+and name to an ID in your system&#39;s database. It does not have to map to any real ID, just
+that it is possible to connect multiple pipelines/templates by the same user together,
+if necessary. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>reason</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A natural language description of what the user did to be on the list, e.g., &#34;Picked
+a pipeline from a list of pipelines.&#34;. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>rationale</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A natural language description by the user of what the user did,
+e.g., &#34;I picked a pipeline because it looks short in comparison with others.&#34;. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PipelineSource">PipelineSource</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>String representing name of the author, team. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>contact</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI to contact the source. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pipelines</td>
+                  <td><a href="#.PipelineDescription">PipelineDescription</a></td>
+                  <td>repeated</td>
+                  <td><p>A list of pipelines used to derive the pipeline. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PlaceholderPipelineDescriptionStep">PlaceholderPipelineDescriptionStep</h3>
+        <p>Used to represent a pipeline template which can be used to generate full pipelines.</p><p>A placeholder is replaced with a pipeline step to form a pipeline. See README.md</p><p>for restrictions on the number of them, their position, allowed inputs and outputs,</p><p>etc.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.StepInput">StepInput</a></td>
+                  <td>repeated</td>
+                  <td><p>List of inputs which can be used as inputs to resulting sub-pipeline. Resulting
+sub-pipeline does not have to use all the inputs, but it cannot use any other inputs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>outputs</td>
+                  <td><a href="#.StepOutput">StepOutput</a></td>
+                  <td>repeated</td>
+                  <td><p>A list of outputs of the resulting sub-pipeline. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitiveArgument">PrimitiveArgument</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>0-based index identifying a step of which primitive is used as a value. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitiveArguments">PrimitiveArguments</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td>repeated</td>
+                  <td><p>0-based index identifying a step of which primitive is used as a value. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitivePipelineDescriptionStep">PrimitivePipelineDescriptionStep</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>primitive</td>
+                  <td><a href="#.Primitive">Primitive</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>arguments</td>
+                  <td><a href="#.PrimitivePipelineDescriptionStep.ArgumentsEntry">PrimitivePipelineDescriptionStep.ArgumentsEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Arguments to the primitive. Constructor arguments should not be listed here, because they
+can be automatically created from other information. All these arguments are listed as kind
+&#34;PIPELINE&#34; in primitive&#39;s metadata. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>outputs</td>
+                  <td><a href="#.StepOutput">StepOutput</a></td>
+                  <td>repeated</td>
+                  <td><p>List of produce methods providing data. One can reference using data reference these outputs
+then in arguments (inputs) in other steps or pipeline outputs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>hyperparams</td>
+                  <td><a href="#.PrimitivePipelineDescriptionStep.HyperparamsEntry">PrimitivePipelineDescriptionStep.HyperparamsEntry</a></td>
+                  <td>repeated</td>
+                  <td><p>Some hyper-parameters are not really tunable and should be fixed as part of template/pipeline.
+This can be done here. Hyper-parameters listed here cannot be tuned or overridden. Author of a
+template/pipeline decides which hyper-parameter are which, probably based on their semantic type.
+A client can specify a list of hyper-parameters to fix, and an AutoML system can add to the list additional
+hyper-parameters in found pipelines. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>users</td>
+                  <td><a href="#.PipelineDescriptionUser">PipelineDescriptionUser</a></td>
+                  <td>repeated</td>
+                  <td><p>List of users associated with selection of this primitive/arguments/hyper-parameters. Optional. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitivePipelineDescriptionStep.ArgumentsEntry">PrimitivePipelineDescriptionStep.ArgumentsEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.PrimitiveStepArgument">PrimitiveStepArgument</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitivePipelineDescriptionStep.HyperparamsEntry">PrimitivePipelineDescriptionStep.HyperparamsEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.PrimitiveStepHyperparameter">PrimitiveStepHyperparameter</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitiveStepArgument">PrimitiveStepArgument</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>container</td>
+                  <td><a href="#.ContainerArgument">ContainerArgument</a></td>
+                  <td></td>
+                  <td><p>A container data type as an argument. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#.DataArgument">DataArgument</a></td>
+                  <td></td>
+                  <td><p>A singleton output from another step as an argument. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>container_list</td>
+                  <td><a href="#.ContainerArguments">ContainerArguments</a></td>
+                  <td></td>
+                  <td><p>A list of container data type values as an argument. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".PrimitiveStepHyperparameter">PrimitiveStepHyperparameter</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>container</td>
+                  <td><a href="#.ContainerArgument">ContainerArgument</a></td>
+                  <td></td>
+                  <td><p>A container data type as a hyper-parameter. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#.DataArgument">DataArgument</a></td>
+                  <td></td>
+                  <td><p>A singleton output from another step as a hyper-parameter. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>primitive</td>
+                  <td><a href="#.PrimitiveArgument">PrimitiveArgument</a></td>
+                  <td></td>
+                  <td><p>A primitive instance to be passed as a hyper-parameter. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.ValueArgument">ValueArgument</a></td>
+                  <td></td>
+                  <td><p>A constant value of a hyper-parameter. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data_set</td>
+                  <td><a href="#.DataArguments">DataArguments</a></td>
+                  <td></td>
+                  <td><p>A set of singleton outputs from other steps in a pipeline. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>primitives_set</td>
+                  <td><a href="#.PrimitiveArguments">PrimitiveArguments</a></td>
+                  <td></td>
+                  <td><p>A set of primitive instances to be passed as a hyper-parameter. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StepInput">StepInput</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Data reference. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".StepOutput">StepOutput</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Name which becomes part of the data reference. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".SubpipelinePipelineDescriptionStep">SubpipelinePipelineDescriptionStep</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>pipeline</td>
+                  <td><a href="#.PipelineDescription">PipelineDescription</a></td>
+                  <td></td>
+                  <td><p>Only &#34;id&#34; field is required in this case to reference another pipeline in the template. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.StepInput">StepInput</a></td>
+                  <td>repeated</td>
+                  <td><p>List of data references, probably of an output of a step or pipeline input,
+mapped to sub-pipeline&#39;s inputs in order. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>outputs</td>
+                  <td><a href="#.StepOutput">StepOutput</a></td>
+                  <td>repeated</td>
+                  <td><p>List of IDs to be used in data references, mapping sub-pipeline&#39;s outputs in order. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ValueArgument">ValueArgument</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>data</td>
+                  <td><a href="#.Value">Value</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="primitive.proto">primitive.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".Primitive">Primitive</h3>
+        <p>Description of the primitive.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>python_path</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>digest</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Digest is optional, because some locally registered primitives might not have it.
+But for all primitives published it is available and it should be provided here as well. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="problem.proto">problem.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".DataAugmentation">DataAugmentation</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>domain</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>keywords</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ForecastingHorizon">ForecastingHorizon</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>resource_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>column_index</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>column_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>horizon_value</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".Problem">Problem</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>task_keywords</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p>Task keywords of the problem. Standard values are required
+to be supported and are available here:
+https://metadata.datadrivendiscovery.org/devel/?definitions#definitions.problem.task_keywords
+
+No standard value will ever start with &#34;_&#34;, so if you worry about
+potential conflicts with future standard values, consider starting
+your non-standard values with &#34;_&#39;. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>performance_metrics</td>
+                  <td><a href="#.ProblemPerformanceMetric">ProblemPerformanceMetric</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProblemDescription">ProblemDescription</h3>
+        <p>Problem description matches the parsed problem description by</p><p>the d3m_metadata.problem.parse_problem_description Python method.</p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>problem</td>
+                  <td><a href="#.Problem">Problem</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>inputs</td>
+                  <td><a href="#.ProblemInput">ProblemInput</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>ID of this problem. Required. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>version</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Version of this problem. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>description</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>digest</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>data_augmentation</td>
+                  <td><a href="#.DataAugmentation">DataAugmentation</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>other_names</td>
+                  <td><a href="#string">string</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProblemInput">ProblemInput</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>dataset_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>Should match one of input datasets given to the pipeline search.
+Every &#34;Dataset&#34; object has an &#34;id&#34; associated with it and is available
+in its metadata. That ID is then used here to reference those inputs. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>targets</td>
+                  <td><a href="#.ProblemTarget">ProblemTarget</a></td>
+                  <td>repeated</td>
+                  <td><p>Targets should resolve to columns in a given dataset. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>privileged_data</td>
+                  <td><a href="#.ProblemPrivilegedData">ProblemPrivilegedData</a></td>
+                  <td>repeated</td>
+                  <td><p>A list of privileged data columns related to unavailable attributes during testing.
+These columns do not have data available in the test split of a dataset. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>forecasting_horizon</td>
+                  <td><a href="#.ForecastingHorizon">ForecastingHorizon</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProblemPerformanceMetric">ProblemPerformanceMetric</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>metric</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>The evaluation metric. Standard values are required to be supported
+and are available here:
+https://metadata.datadrivendiscovery.org/devel/?definitions#definitions.performance_metric
+
+In addition, &#34;RANK&#34; metric should be also supported. &#34;RANK&#34; metric
+can be used for a rank of a solution among all found solutions of
+a given &#34;SearchSolutions&#34; call. Rank is a non-negative floating-point number.
+Lower numbers represent better solutions. Each ranked solution should have
+a different rank (for all solutions of a given &#34;SearchSolutions&#34; call).
+Only possible with &#34;RANKING&#34; evaluation method.
+
+The following additional metrics are defined to allow expressing
+internal evaluation scores used by an AutoML system during solution search.
+If any you are using is missing, feel free to request it to be added.
+* &#34;LOSS&#34;
+  Average loss of an unspecified loss function.
+
+No standard value will ever start with &#34;_&#34;, so if you worry about
+potential conflicts with future standard values, consider starting
+your non-standard values with &#34;_&#39;. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>k</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p>Additional params used by some metrics. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pos_label</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProblemPrivilegedData">ProblemPrivilegedData</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>privileged_data_index</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>resource_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>column_index</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>column_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ProblemTarget">ProblemTarget</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>target_index</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>resource_id</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>column_index</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>column_name</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>clusters_number</td>
+                  <td><a href="#int32">int32</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+
+      
+
+      
+    
+      
+      <div class="file-heading">
+        <h2 id="value.proto">value.proto</h2><a href="#title">Top</a>
+      </div>
+      <p></p>
+
+      
+        <h3 id=".Value">Value</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>error</td>
+                  <td><a href="#.ValueError">ValueError</a></td>
+                  <td></td>
+                  <td><p>If there was an error trying to provided the value using the requested
+value type and no other value type was available to be used. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>raw</td>
+                  <td><a href="#.ValueRaw">ValueRaw</a></td>
+                  <td></td>
+                  <td><p>Raw values directly provided in the message. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>dataset_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI pointing to a dataset. Resulting value is Dataset container value from loading this URI. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>csv_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI pointing to a CSV file. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pickle_uri</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>An URI to a Python-pickled value. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>pickle_blob</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>A Python-pickled value itself. </p></td>
+                </tr>
+              
+                <tr>
+                  <td>plasma_id</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p>20 bytes of Plasma ObjectID of the value. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ValueDict">ValueDict</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>items</td>
+                  <td><a href="#.ValueDict.ItemsEntry">ValueDict.ItemsEntry</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ValueDict.ItemsEntry">ValueDict.ItemsEntry</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>key</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>value</td>
+                  <td><a href="#.ValueRaw">ValueRaw</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ValueError">ValueError</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>message</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p>A error message useful for debugging or logging. Not meant to be very end-user friendly.
+If a list of supported/allowed value types could not support a given value, then message
+should say so. On the other hand, if there was really an error using a value type which
+would otherwise support a given value, then the error message should communicate this error.
+If there was such an error but some later value type allowed for recovery, then there
+should be no error. </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ValueList">ValueList</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>items</td>
+                  <td><a href="#.ValueRaw">ValueRaw</a></td>
+                  <td>repeated</td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+        <h3 id=".ValueRaw">ValueRaw</h3>
+        <p></p>
+
+        
+          <table class="field-table">
+            <thead>
+              <tr><td>Field</td><td>Type</td><td>Label</td><td>Description</td></tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td>null</td>
+                  <td><a href="#.NullValue">NullValue</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>double</td>
+                  <td><a href="#double">double</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>int64</td>
+                  <td><a href="#int64">int64</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>bool</td>
+                  <td><a href="#bool">bool</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>string</td>
+                  <td><a href="#string">string</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>bytes</td>
+                  <td><a href="#bytes">bytes</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>list</td>
+                  <td><a href="#.ValueList">ValueList</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+                <tr>
+                  <td>dict</td>
+                  <td><a href="#.ValueDict">ValueDict</a></td>
+                  <td></td>
+                  <td><p> </p></td>
+                </tr>
+              
+            </tbody>
+          </table>
+
+          
+
+        
+      
+
+      
+        <h3 id=".NullValue">NullValue</h3>
+        <p></p>
+        <table class="enum-table">
+          <thead>
+            <tr><td>Name</td><td>Number</td><td>Description</td></tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                <td>NULL_VALUE</td>
+                <td>0</td>
+                <td><p></p></td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+
+      
+
+      
+    
+
+    <h2 id="scalar-value-types">Scalar Value Types</h2>
+    <table class="scalar-value-types-table">
+      <thead>
+        <tr><td>.proto Type</td><td>Notes</td><td>C++</td><td>Java</td><td>Python</td><td>Go</td><td>C#</td><td>PHP</td><td>Ruby</td></tr>
+      </thead>
+      <tbody>
+        
+          <tr id="double">
+            <td>double</td>
+            <td></td>
+            <td>double</td>
+            <td>double</td>
+            <td>float</td>
+            <td>float64</td>
+            <td>double</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="float">
+            <td>float</td>
+            <td></td>
+            <td>float</td>
+            <td>float</td>
+            <td>float</td>
+            <td>float32</td>
+            <td>float</td>
+            <td>float</td>
+            <td>Float</td>
+          </tr>
+        
+          <tr id="int32">
+            <td>int32</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="int64">
+            <td>int64</td>
+            <td>Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="uint32">
+            <td>uint32</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int/long</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="uint64">
+            <td>uint64</td>
+            <td>Uses variable-length encoding.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint32">
+            <td>sint32</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sint64">
+            <td>sint64</td>
+            <td>Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="fixed32">
+            <td>fixed32</td>
+            <td>Always four bytes. More efficient than uint32 if values are often greater than 2^28.</td>
+            <td>uint32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>uint32</td>
+            <td>uint</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="fixed64">
+            <td>fixed64</td>
+            <td>Always eight bytes. More efficient than uint64 if values are often greater than 2^56.</td>
+            <td>uint64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>uint64</td>
+            <td>ulong</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="sfixed32">
+            <td>sfixed32</td>
+            <td>Always four bytes.</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>int</td>
+            <td>int32</td>
+            <td>int</td>
+            <td>integer</td>
+            <td>Bignum or Fixnum (as required)</td>
+          </tr>
+        
+          <tr id="sfixed64">
+            <td>sfixed64</td>
+            <td>Always eight bytes.</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>int/long</td>
+            <td>int64</td>
+            <td>long</td>
+            <td>integer/string</td>
+            <td>Bignum</td>
+          </tr>
+        
+          <tr id="bool">
+            <td>bool</td>
+            <td></td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>boolean</td>
+            <td>bool</td>
+            <td>bool</td>
+            <td>boolean</td>
+            <td>TrueClass/FalseClass</td>
+          </tr>
+        
+          <tr id="string">
+            <td>string</td>
+            <td>A string must always contain UTF-8 encoded or 7-bit ASCII text.</td>
+            <td>string</td>
+            <td>String</td>
+            <td>str/unicode</td>
+            <td>string</td>
+            <td>string</td>
+            <td>string</td>
+            <td>String (UTF-8)</td>
+          </tr>
+        
+          <tr id="bytes">
+            <td>bytes</td>
+            <td>May contain any arbitrary sequence of bytes.</td>
+            <td>string</td>
+            <td>ByteString</td>
+            <td>str</td>
+            <td>[]byte</td>
+            <td>ByteString</td>
+            <td>string</td>
+            <td>String (ASCII-8BIT)</td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
+
