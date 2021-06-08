@@ -1,0 +1,453 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>opendp.v1.core module &mdash; opendp 0.1.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="opendp.v1.meas module" href="opendp.v1.meas.html" />
+    <link rel="prev" title="opendp.v1 package" href="opendp.v1.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> opendp
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="opendp.v1.html">opendp.v1 package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="opendp.v1.html#submodules">Submodules</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">opendp.v1.core module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opendp.v1.meas.html">opendp.v1.meas module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opendp.v1.mod.html">opendp.v1.mod module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opendp.v1.trans.html">opendp.v1.trans module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="opendp.v1.typing.html">opendp.v1.typing module</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="opendp.v1.html#module-opendp.v1">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">opendp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="opendp.v1.html">opendp.v1 package</a> &raquo;</li>
+        
+      <li>opendp.v1.core module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/opendp.v1.core.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-opendp.v1.core">
+<span id="opendp-v1-core-module"></span><h1>opendp.v1.core module<a class="headerlink" href="#module-opendp.v1.core" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="opendp.v1.core.make_basic_composition">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">make_basic_composition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement0</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em>, <em class="sig-param"><span class="n">measurement1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/core.html#make_basic_composition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.make_basic_composition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the DP composition (<cite>measurement0</cite>, <cite>measurement1</cite>). Returns a Measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurement0</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The left member of the resulting 2-tuple.</p></li>
+<li><p><strong>measurement1</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The right member of the resulting 2-tuple.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Measurement representing the composed transformations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.make_chain_mt">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">make_chain_mt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em>, <em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/core.html#make_chain_mt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.make_chain_mt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the functional composition (<cite>measurement</cite> ○ <cite>transformation</cite>). Returns a Measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – outer privatizer</p></li>
+<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – inner query</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Measurement representing the chained computation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.make_chain_tt">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">make_chain_tt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em>, <em class="sig-param"><span class="n">transformation0</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a><a class="reference internal" href="_modules/opendp/v1/core.html#make_chain_tt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.make_chain_tt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the functional composition (<cite>transformation1</cite> ○ <cite>transformation0</cite>). Returns a Tranformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transformation1</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – outer transformation</p></li>
+<li><p><strong>transformation0</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – inner transformation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Transformation representing the chained computation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">Transformation</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.measurement_check">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">measurement_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em>, <em class="sig-param"><span class="n">d_in</span></em>, <em class="sig-param"><span class="n">d_out</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/opendp/v1/core.html#measurement_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.measurement_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the privacy relation of the <cite>measurement</cite> at the given <cite>d_in</cite>, <cite>d_out</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – Measurement to check the privacy relation of.</p></li>
+<li><p><strong>d_in</strong> – Distance in terms of the input metric space.</p></li>
+<li><p><strong>d_out</strong> – Distance in terms of the output measure space.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True indicates that the relation passed at the given distance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.measurement_input_carrier_type">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">measurement_input_carrier_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/opendp/v1/core.html#measurement_input_carrier_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.measurement_input_carrier_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the input (carrier) data type of <cite>measurement</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The measurement to retrieve the type from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.measurement_input_distance_type">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">measurement_input_distance_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/opendp/v1/core.html#measurement_input_distance_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.measurement_input_distance_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the input distance type of <cite>measurement</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The measurement to retrieve the type from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.measurement_invoke">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">measurement_invoke</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em>, <em class="sig-param"><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/opendp/v1/core.html#measurement_invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.measurement_invoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke the <cite>measurement</cite> with <cite>arg</cite>. Returns a differentially private release.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – Measurement to invoke.</p></li>
+<li><p><strong>arg</strong> (<em>Any</em>) – Input data to supply to the measurement. A member of the measurement’s input domain.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Differentially private release.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.measurement_output_distance_type">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">measurement_output_distance_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">measurement</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/opendp/v1/core.html#measurement_output_distance_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.measurement_output_distance_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the output distance type of <cite>measurement</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The measurement to retrieve the type from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.transformation_check">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">transformation_check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em>, <em class="sig-param"><span class="n">d_in</span></em>, <em class="sig-param"><span class="n">d_out</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/opendp/v1/core.html#transformation_check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.transformation_check" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check the stability relation of the <cite>transformation</cite> at the given <cite>d_in</cite>, <cite>d_out</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – Transformation to check the stability relation of.</p></li>
+<li><p><strong>d_in</strong> – Distance in terms of the input metric space.</p></li>
+<li><p><strong>d_out</strong> – Distance in terms of the output metric space.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True indicates that the relation passed at the given distance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.transformation_input_carrier_type">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">transformation_input_carrier_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/opendp/v1/core.html#transformation_input_carrier_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.transformation_input_carrier_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the input (carrier) data type of <cite>transformation</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – The transformation to retrieve the type from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.transformation_input_distance_type">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">transformation_input_distance_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/opendp/v1/core.html#transformation_input_distance_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.transformation_input_distance_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the input distance type of <cite>transformation</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – The transformation to retrieve the type from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.transformation_invoke">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">transformation_invoke</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em>, <em class="sig-param"><span class="n">arg</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; Any<a class="reference internal" href="_modules/opendp/v1/core.html#transformation_invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.transformation_invoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoke the <cite>transformation</cite> with <cite>arg</cite>. 
+The response is not differentially private as it has not been chained with a measurement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – Transformation to invoke.</p></li>
+<li><p><strong>arg</strong> (<em>Any</em>) – Input data to supply to the measurement. A member of the transformations’s input domain.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Non-differentially private answer to the query.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="opendp.v1.core.transformation_output_distance_type">
+<code class="sig-prename descclassname">opendp.v1.core.</code><code class="sig-name descname">transformation_output_distance_type</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transformation</span><span class="p">:</span> <span class="n"><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">opendp.v1.mod.Transformation</a></span></em><span class="sig-paren">)</span> &#x2192; str<a class="reference internal" href="_modules/opendp/v1/core.html#transformation_output_distance_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.core.transformation_output_distance_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the output distance type of <cite>transformation</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – The transformation to retrieve the type from.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="opendp.v1.meas.html" class="btn btn-neutral float-right" title="opendp.v1.meas module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="opendp.v1.html" class="btn btn-neutral float-left" title="opendp.v1 package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2021, OpenDP
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
