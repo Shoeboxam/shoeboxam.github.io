@@ -172,7 +172,40 @@
 <p>A differentially private unit of computation.
 A measurement contains a function and a privacy relation.
 The function releases a differentially-private release.
-The privacy relation maps from an input metric space to an output measure space.</p>
+The privacy relation maps from an input metric to an output measure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.mod</span> <span class="kn">import</span> <span class="n">Measurement</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of Measurement using a constructor from the meas module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.meas</span> <span class="kn">import</span> <span class="n">make_base_geometric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base_geometric</span><span class="p">:</span> <span class="n">Measurement</span> <span class="o">=</span> <span class="n">make_base_geometric</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">2.</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># invoke the measurement (invoke and __call__ are equivalent)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base_geometric</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># -&gt; 101</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base_geometric</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># -&gt; 99</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># check the measurement&#39;s relation at</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#     (1, 0.5): (L1Sensitivity&lt;u32&gt;, MaxDivergence)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">base_geometric</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># chain with a transformation from the trans module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.trans</span> <span class="kn">import</span> <span class="n">make_count</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.typing</span> <span class="kn">import</span> <span class="n">HammingDistance</span><span class="p">,</span> <span class="n">L1Sensitivity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chained</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">make_count</span><span class="p">(</span><span class="n">MI</span><span class="o">=</span><span class="n">HammingDistance</span><span class="p">,</span> <span class="n">MO</span><span class="o">=</span><span class="n">L1Sensitivity</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">TI</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="o">&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">base_geometric</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the resulting measurement has the same features</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chained</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># -&gt; 4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># check the chained measurement&#39;s relation at</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#     (1, 0.5): (HammingDistance, MaxDivergence)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">chained</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="opendp.v1.mod.Measurement.check">
 <code class="sig-name descname">check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d_in</span></em>, <em class="sig-param"><span class="n">d_out</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/opendp/v1/mod.html#Measurement.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.mod.Measurement.check" title="Permalink to this definition">¶</a></dt>
@@ -180,9 +213,9 @@ The privacy relation maps from an input metric space to an output measure space.
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d_in</strong> – Distance in terms of the input metric space.</p></li>
-<li><p><strong>d_out</strong> – Distance in terms of the output measure space.</p></li>
-<li><p><strong>debug</strong> – Enable to raise Exceptions to help identify why the privacy relation failed.</p></li>
+<li><p><strong>d_in</strong> -- Distance in terms of the input metric.</p></li>
+<li><p><strong>d_out</strong> -- Distance in terms of the output measure.</p></li>
+<li><p><strong>debug</strong> -- Enable to raise Exceptions to help identify why the privacy relation failed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -209,8 +242,8 @@ Any member of the input domain is a member of the carrier type.</p>
 <dl class="py method">
 <dt id="opendp.v1.mod.Measurement.input_distance_type">
 <em class="property">property </em><code class="sig-name descname">input_distance_type</code><a class="headerlink" href="#opendp.v1.mod.Measurement.input_distance_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the distance type of the input metric space.
-This may be any integral type for dataset metric spaces, or any numeric type for sensitivity metric spaces.</p>
+<dd><p>Retrieve the distance type of the input metric.
+This may be any integral type for dataset metrics, or any numeric type for sensitivity metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>distance type</p>
@@ -224,10 +257,13 @@ This may be any integral type for dataset metric spaces, or any numeric type for
 <dd><p>Create a differentially-private release with <cite>arg</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>arg</strong> – Input to the measurement.</p>
+<dd class="field-odd"><p><strong>arg</strong> -- Input to the measurement.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>differentially-private release</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p>
 </dd>
 </dl>
 </dd></dl>
@@ -235,7 +271,7 @@ This may be any integral type for dataset metric spaces, or any numeric type for
 <dl class="py method">
 <dt id="opendp.v1.mod.Measurement.output_distance_type">
 <em class="property">property </em><code class="sig-name descname">output_distance_type</code><a class="headerlink" href="#opendp.v1.mod.Measurement.output_distance_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the distance type of the output measure space.
+<dd><p>Retrieve the distance type of the output measure.
 This is the type that the budget is expressed in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -253,7 +289,6 @@ This is the type that the budget is expressed in.</p>
 <p>General exception for errors originating from the underlying OpenDP library.
 The variant attribute corresponds to <a class="reference external" href="https://github.com/opendp/opendp/blob/53ec58d01762ca5ceee08590d7e7b725bbdafcf6/rust/opendp/src/error.rs#L46-L87">one of the following variants</a> and can be matched on.
 Error variants may change in library updates.</p>
-<p>TODO: Link to generated rust documentation for ErrorVariant.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -263,7 +298,39 @@ Error variants may change in library updates.</p>
 <p>A non-differentially private unit of computation.
 A transformation contains a function and a stability relation.
 The function maps from an input domain to an output domain.
-The stability relation maps from an input metric space to an output metric space.</p>
+The stability relation maps from an input metric to an output metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.mod</span> <span class="kn">import</span> <span class="n">Transformation</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an instance of Transformation using a constructor from the trans module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.trans</span> <span class="kn">import</span> <span class="n">make_count</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">:</span> <span class="n">Transformation</span> <span class="o">=</span> <span class="n">make_count</span><span class="p">(</span><span class="n">MI</span><span class="o">=</span><span class="n">SymmetricDistance</span><span class="p">,</span> <span class="n">MO</span><span class="o">=</span><span class="n">L1Sensitivity</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">TI</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># invoke the transformation (invoke and __call__ are equivalent)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># -&gt; 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">count</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># -&gt; 3</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># check the transformation&#39;s relation at</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#     (1, 1): (SymmetricDistance, L1Sensitivity&lt;u32&gt;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">count</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># chain with more transformations from the trans module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.trans</span> <span class="kn">import</span> <span class="n">make_split_lines</span><span class="p">,</span> <span class="n">make_parse_series</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.typing</span> <span class="kn">import</span> <span class="n">SymmetricDistance</span><span class="p">,</span> <span class="n">L1Sensitivity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chained</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">make_split_lines</span><span class="p">(</span><span class="n">M</span><span class="o">=</span><span class="n">SymmetricDistance</span><span class="p">)</span> <span class="o">&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">make_parse_series</span><span class="p">(</span><span class="n">impute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="n">SymmetricDistance</span><span class="p">,</span> <span class="n">TO</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="o">&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">count</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the resulting transformation has the same features</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">chained</span><span class="p">(</span><span class="s2">&quot;1</span><span class="se">\n</span><span class="s2">2</span><span class="se">\n</span><span class="s2">3&quot;</span><span class="p">)</span>  <span class="c1"># -&gt; 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">chained</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># both chained transformations were 1-stable</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="opendp.v1.mod.Transformation.check">
 <code class="sig-name descname">check</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">d_in</span></em>, <em class="sig-param"><span class="n">d_out</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opendp/v1/mod.html#Transformation.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.mod.Transformation.check" title="Permalink to this definition">¶</a></dt>
@@ -271,9 +338,9 @@ The stability relation maps from an input metric space to an output metric space
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>d_in</strong> – Distance in terms of the input metric space.</p></li>
-<li><p><strong>d_out</strong> – Distance in terms of the output metric space.</p></li>
-<li><p><strong>debug</strong> – Enable to raise Exceptions to help identify why the stability relation failed.</p></li>
+<li><p><strong>d_in</strong> -- Distance in terms of the input metric.</p></li>
+<li><p><strong>d_out</strong> -- Distance in terms of the output metric.</p></li>
+<li><p><strong>debug</strong> -- Enable to raise Exceptions to help identify why the stability relation failed.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -281,6 +348,9 @@ The stability relation maps from an input metric space to an output metric space
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p>
 </dd>
 </dl>
 </dd></dl>
@@ -300,8 +370,8 @@ Any member of the input domain is a member of the carrier type.</p>
 <dl class="py method">
 <dt id="opendp.v1.mod.Transformation.input_distance_type">
 <em class="property">property </em><code class="sig-name descname">input_distance_type</code><a class="headerlink" href="#opendp.v1.mod.Transformation.input_distance_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the distance type of the input metric space.
-This may be any integral type for dataset metric spaces, or any numeric type for sensitivity metric spaces.</p>
+<dd><p>Retrieve the distance type of the input metric.
+This may be any integral type for dataset metrics, or any numeric type for sensitivity metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>distance type</p>
@@ -315,10 +385,13 @@ This may be any integral type for dataset metric spaces, or any numeric type for
 <dd><p>Execute a non-differentially-private query with <cite>arg</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>arg</strong> – Input to the transformation.</p>
+<dd class="field-odd"><p><strong>arg</strong> -- Input to the transformation.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>non-differentially-private answer</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p>
 </dd>
 </dl>
 </dd></dl>
@@ -326,8 +399,8 @@ This may be any integral type for dataset metric spaces, or any numeric type for
 <dl class="py method">
 <dt id="opendp.v1.mod.Transformation.output_distance_type">
 <em class="property">property </em><code class="sig-name descname">output_distance_type</code><a class="headerlink" href="#opendp.v1.mod.Transformation.output_distance_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve the distance type of the output metric space.
-This may be any integral type for dataset metric spaces, or any numeric type for sensitivity metric spaces.</p>
+<dd><p>Retrieve the distance type of the output metric.
+This may be any integral type for dataset metrics, or any numeric type for sensitivity metrics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>distance type</p>

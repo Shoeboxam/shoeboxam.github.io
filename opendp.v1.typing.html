@@ -192,9 +192,12 @@ Provides static type checking in user-code for privacy measures and a getitem in
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>expected</strong> – the type that the data will be converted to</p></li>
-<li><p><strong>inferred</strong> – the type inferred from data</p></li>
+<li><p><strong>expected</strong> -- the type that the data will be converted to</p></li>
+<li><p><strong>inferred</strong> -- the type inferred from data</p></li>
 </ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>AssertionError</strong> -- if <cite>expected</cite> type differs significantly from <cite>inferred</cite> type</p>
 </dd>
 </dl>
 </dd></dl>
@@ -205,55 +208,89 @@ Provides static type checking in user-code for privacy measures and a getitem in
 <dd><p>Infer the normalized type from a public example.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>public_example</strong> – data used to infer the type</p>
+<dd class="field-odd"><p><strong>public_example</strong> -- data used to infer the type</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Normalized type. If the type has subtypes, returns a RuntimeType, else a str.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Union[“RuntimeType”, str]</p>
+<dd class="field-odd"><p>Union[&quot;RuntimeType&quot;, str]</p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.UnknownTypeException" title="opendp.v1.mod.UnknownTypeException"><strong>UnknownTypeException</strong></a> -- if inference fails on <cite>public_example</cite></p>
+</dd>
+<dt class="field-odd">Examples</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.typing</span> <span class="kn">import</span> <span class="n">RuntimeType</span><span class="p">,</span> <span class="n">L1Sensitivity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">infer</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;i32&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">infer</span><span class="p">(</span><span class="mf">12.</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;f64&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">infer</span><span class="p">([</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;Vec&lt;String&gt;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">infer</span><span class="p">((</span><span class="mf">12.</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;A&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="s2">&quot;(f64,  bool,String)&quot;</span> <span class="c1"># eq doesn&#39;t care about whitespace</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="opendp.v1.typing.RuntimeType.parse">
-<em class="property">classmethod </em><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">type_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">RuntimeType</a><span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">opendp.v1.typing.RuntimeType</a><span class="p">, </span>str<span class="p">]</span><a class="reference internal" href="_modules/opendp/v1/typing.html#RuntimeType.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.typing.RuntimeType.parse" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalize type information into a normalized type representation.
-Type information may be expressed as
-- python type hints from std typing module
-- plaintext rust type strings for setting specific bit depth
-- python type class - one of {int, str, float, bool}
-- tuple of type information - for example: (float, float)</p>
+<em class="property">classmethod </em><code class="sig-name descname">parse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">type_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">RuntimeType</a><span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">opendp.v1.typing.RuntimeType</a><span class="p">, </span>str<span class="p">]</span><a class="reference internal" href="_modules/opendp/v1/typing.html#RuntimeType.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.typing.RuntimeType.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse type descriptor into a normalized rust type.</p>
+<p>Type descriptor may be expressed as:</p>
+<ul class="simple">
+<li><p>python type hints from std typing module</p></li>
+<li><p>plaintext rust type strings for setting specific bit depth</p></li>
+<li><p>python type class - one of {int, str, float, bool}</p></li>
+<li><p>tuple of type information - for example: (float, float)</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>type_name</strong> – type specifier</p>
+<dd class="field-odd"><p><strong>type_name</strong> -- type specifier</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Normalized type. If the type has subtypes, returns a RuntimeType, else a str.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Union[“RuntimeType”, str]</p>
+<dd class="field-odd"><p>Union[&quot;RuntimeType&quot;, str]</p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- if <cite>type_name</cite> fails to parse</p>
+</dd>
+<dt class="field-odd">Examples</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">opendp.v1.typing</span> <span class="kn">import</span> <span class="n">RuntimeType</span><span class="p">,</span> <span class="n">L1Sensitivity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;i32&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;i32&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;i32&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">L1Sensitivity</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;L1Sensitivity&lt;i32&gt;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">L1Sensitivity</span><span class="p">[</span><span class="s2">&quot;f32&quot;</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;L1Sensitivity&lt;f32&gt;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;Vec&lt;int&gt;&quot;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="opendp.v1.typing.RuntimeType.parse_or_infer">
-<em class="property">classmethod </em><code class="sig-name descname">parse_or_infer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">type_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">RuntimeType</a><span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">public_example</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">opendp.v1.typing.RuntimeType</a><span class="p">, </span>str<span class="p">]</span><a class="reference internal" href="_modules/opendp/v1/typing.html#RuntimeType.parse_or_infer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.typing.RuntimeType.parse_or_infer" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="sig-name descname">parse_or_infer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">type_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">RuntimeType</a><span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">public_example</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference internal" href="#opendp.v1.typing.RuntimeType" title="opendp.v1.typing.RuntimeType">opendp.v1.typing.RuntimeType</a><span class="p">, </span>str<span class="p">]</span><a class="reference internal" href="_modules/opendp/v1/typing.html#RuntimeType.parse_or_infer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.typing.RuntimeType.parse_or_infer" title="Permalink to this definition">¶</a></dt>
 <dd><p>If type_name is supplied, normalize it. Otherwise, infer the normalized type from a public example.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type_name</strong> – type specifier. See RuntimeType.parse for documentation on valid inputs</p></li>
-<li><p><strong>public_example</strong> – data used to infer the type</p></li>
+<li><p><strong>type_name</strong> -- type specifier. See RuntimeType.parse for documentation on valid inputs</p></li>
+<li><p><strong>public_example</strong> -- data used to infer the type</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Normalized type. If the type has subtypes, returns a RuntimeType, else a str.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Union[“RuntimeType”, str]</p>
+<dd class="field-odd"><p>Union[&quot;RuntimeType&quot;, str]</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> -- if <cite>type_name</cite> fails to parse</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.UnknownTypeException" title="opendp.v1.mod.UnknownTypeException"><strong>UnknownTypeException</strong></a> -- if inference fails on <cite>public_example</cite> or no args are supplied</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

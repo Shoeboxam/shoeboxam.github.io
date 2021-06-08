@@ -172,8 +172,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>measurement0</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The left member of the resulting 2-tuple.</p></li>
-<li><p><strong>measurement1</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The right member of the resulting 2-tuple.</p></li>
+<li><p><strong>measurement0</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- The left member of the resulting 2-tuple.</p></li>
+<li><p><strong>measurement1</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- The right member of the resulting 2-tuple.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -181,6 +181,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -192,8 +198,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – outer privatizer</p></li>
-<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – inner query</p></li>
+<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- outer privatizer</p></li>
+<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- inner query</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -201,6 +207,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -212,8 +224,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transformation1</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – outer transformation</p></li>
-<li><p><strong>transformation0</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – inner transformation</p></li>
+<li><p><strong>transformation1</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- outer transformation</p></li>
+<li><p><strong>transformation0</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- inner transformation</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -221,6 +233,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation">Transformation</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -232,9 +250,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – Measurement to check the privacy relation of.</p></li>
-<li><p><strong>d_in</strong> – Distance in terms of the input metric space.</p></li>
-<li><p><strong>d_out</strong> – Distance in terms of the output measure space.</p></li>
+<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- Measurement to check the privacy relation of.</p></li>
+<li><p><strong>d_in</strong> -- Distance in terms of the input metric.</p></li>
+<li><p><strong>d_out</strong> -- Distance in terms of the output measure.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -242,6 +260,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -252,10 +276,16 @@
 <dd><p>Get the input (carrier) data type of <cite>measurement</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The measurement to retrieve the type from.</p>
+<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- The measurement to retrieve the type from.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -266,10 +296,16 @@
 <dd><p>Get the input distance type of <cite>measurement</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The measurement to retrieve the type from.</p>
+<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- The measurement to retrieve the type from.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -281,8 +317,8 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – Measurement to invoke.</p></li>
-<li><p><strong>arg</strong> (<em>Any</em>) – Input data to supply to the measurement. A member of the measurement’s input domain.</p></li>
+<li><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- Measurement to invoke.</p></li>
+<li><p><strong>arg</strong> (<em>Any</em>) -- Input data to supply to the measurement. A member of the measurement's input domain.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -290,6 +326,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Any</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -300,10 +342,16 @@
 <dd><p>Get the output distance type of <cite>measurement</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) – The measurement to retrieve the type from.</p>
+<dd class="field-odd"><p><strong>measurement</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement"><em>Measurement</em></a>) -- The measurement to retrieve the type from.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -315,9 +363,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – Transformation to check the stability relation of.</p></li>
-<li><p><strong>d_in</strong> – Distance in terms of the input metric space.</p></li>
-<li><p><strong>d_out</strong> – Distance in terms of the output metric space.</p></li>
+<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- Transformation to check the stability relation of.</p></li>
+<li><p><strong>d_in</strong> -- Distance in terms of the input metric.</p></li>
+<li><p><strong>d_out</strong> -- Distance in terms of the output metric.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -325,6 +373,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -335,10 +389,16 @@
 <dd><p>Get the input (carrier) data type of <cite>transformation</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – The transformation to retrieve the type from.</p>
+<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- The transformation to retrieve the type from.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -349,10 +409,16 @@
 <dd><p>Get the input distance type of <cite>transformation</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – The transformation to retrieve the type from.</p>
+<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- The transformation to retrieve the type from.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -365,8 +431,8 @@ The response is not differentially private as it has not been chained with a mea
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – Transformation to invoke.</p></li>
-<li><p><strong>arg</strong> (<em>Any</em>) – Input data to supply to the measurement. A member of the transformations’s input domain.</p></li>
+<li><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- Transformation to invoke.</p></li>
+<li><p><strong>arg</strong> (<em>Any</em>) -- Input data to supply to the measurement. A member of the transformations's input domain.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -374,6 +440,12 @@ The response is not differentially private as it has not been chained with a mea
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Any</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -384,10 +456,16 @@ The response is not differentially private as it has not been chained with a mea
 <dd><p>Get the output distance type of <cite>transformation</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) – The transformation to retrieve the type from.</p>
+<dd class="field-odd"><p><strong>transformation</strong> (<a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Transformation" title="opendp.v1.mod.Transformation"><em>Transformation</em></a>) -- The transformation to retrieve the type from.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

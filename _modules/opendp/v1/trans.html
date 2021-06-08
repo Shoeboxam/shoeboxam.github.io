@@ -148,7 +148,7 @@
             
   <h1>Source code for opendp.v1.trans</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Auto-generated. Do not edit.</span>
-<span class="kn">from</span> <span class="nn">opendp.v1._convert</span> <span class="kn">import</span> <span class="n">_py_to_c</span><span class="p">,</span> <span class="n">_c_to_py</span>
+<span class="kn">from</span> <span class="nn">opendp.v1._convert</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">opendp.v1._lib</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">opendp.v1.mod</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">opendp.v1.typing</span> <span class="kn">import</span> <span class="o">*</span>
@@ -160,27 +160,29 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Make a Transformation that simply passes the data through.</span>
 <span class="sd">    </span>
-<span class="sd">    :param M: Dataset metric space.</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :param T: Type of data passed to the identity function.</span>
 <span class="sd">    :type T: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A identity step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_identity</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_split_lines"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_split_lines">[docs]</a><span class="k">def</span> <span class="nf">make_split_lines</span><span class="p">(</span>
@@ -188,51 +190,60 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Make a Transformation that takes a string and splits it into a Vec&lt;String&gt; of its lines.</span>
 <span class="sd">    </span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :return: A split_lines step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_split_lines</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">M</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">M</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_parse_series"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_parse_series">[docs]</a><span class="k">def</span> <span class="nf">make_parse_series</span><span class="p">(</span>
     <span class="n">impute</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="n">M</span><span class="p">:</span> <span class="n">DatasetMetric</span>
+    <span class="n">M</span><span class="p">:</span> <span class="n">DatasetMetric</span><span class="p">,</span>
+    <span class="n">TO</span><span class="p">:</span> <span class="n">RuntimeTypeDescriptor</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Make a Transformation that parses a Vec&lt;String&gt; into a Vec&lt;M&gt;.</span>
+    <span class="sd">&quot;&quot;&quot;Make a Transformation that parses a Vec&lt;String&gt; into a Vec&lt;T&gt;.</span>
 <span class="sd">    </span>
 <span class="sd">    :param impute: Enable to impute values that fail to parse. If false, raise an error if parsing fails.</span>
 <span class="sd">    :type impute: bool</span>
-<span class="sd">    :param M: </span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
+<span class="sd">    :param TO: atomic type of the output vector</span>
+<span class="sd">    :type TO: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A parse_series step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
+    <span class="n">TO</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">TO</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">impute</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">impute</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">impute</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">impute</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">TO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">TO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_parse_series</span>
-    <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
+    <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">impute</span><span class="p">,</span> <span class="n">M</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">impute</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">TO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_split_records"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_split_records">[docs]</a><span class="k">def</span> <span class="nf">make_split_records</span><span class="p">(</span>
@@ -243,24 +254,26 @@
 <span class="sd">    </span>
 <span class="sd">    :param separator: The token(s) that separate entries in each record.</span>
 <span class="sd">    :type separator: str</span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :return: A split_records step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">separator</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">separator</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_split_records</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">M</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">M</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_create_dataframe"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_create_dataframe">[docs]</a><span class="k">def</span> <span class="nf">make_create_dataframe</span><span class="p">(</span>
@@ -272,28 +285,30 @@
 <span class="sd">    </span>
 <span class="sd">    :param col_names: Column names for each record entry.</span>
 <span class="sd">    :type col_names: Any</span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :param K: categorical/hashable data type of column names</span>
 <span class="sd">    :type K: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A create_dataframe step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     <span class="n">K</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse_or_infer</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">K</span><span class="p">,</span> <span class="n">public_example</span><span class="o">=</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">col_names</span><span class="p">),</span> <span class="kc">None</span><span class="p">))</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">col_names</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">RuntimeType</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;Vec&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">K</span><span class="p">]))</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">col_names</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">RuntimeType</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;Vec&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">K</span><span class="p">]))</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_create_dataframe</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_split_dataframe"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_split_dataframe">[docs]</a><span class="k">def</span> <span class="nf">make_split_dataframe</span><span class="p">(</span>
@@ -309,29 +324,31 @@
 <span class="sd">    :type separator: str</span>
 <span class="sd">    :param col_names: Column names for each record entry.</span>
 <span class="sd">    :type col_names: Any</span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :param K: categorical/hashable data type of column names</span>
 <span class="sd">    :type K: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A split_dataframe step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     <span class="n">K</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse_or_infer</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">K</span><span class="p">,</span> <span class="n">public_example</span><span class="o">=</span><span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">col_names</span><span class="p">),</span> <span class="kc">None</span><span class="p">))</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">separator</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">col_names</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">RuntimeType</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;Vec&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">K</span><span class="p">]))</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">separator</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">col_names</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">RuntimeType</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;Vec&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">K</span><span class="p">]))</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_split_dataframe</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">col_names</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">separator</span><span class="p">,</span> <span class="n">col_names</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_parse_column"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_parse_column">[docs]</a><span class="k">def</span> <span class="nf">make_parse_column</span><span class="p">(</span>
@@ -346,7 +363,7 @@
 <span class="sd">    :param key: name of column to select from dataframe and parse</span>
 <span class="sd">    :param impute: Enable to impute values that fail to parse. If false, raise an error if parsing fails.</span>
 <span class="sd">    :type impute: bool</span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :param K: categorical/hashable data type of the key/column name</span>
 <span class="sd">    :type K: RuntimeTypeDescriptor</span>
@@ -354,6 +371,8 @@
 <span class="sd">    :type T: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A parse_column step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
@@ -361,18 +380,18 @@
     <span class="n">T</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
-    <span class="n">impute</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">impute</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
+    <span class="n">impute</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">impute</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_parse_column</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_bool</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">impute</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">impute</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_select_column"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_select_column">[docs]</a><span class="k">def</span> <span class="nf">make_select_column</span><span class="p">(</span>
@@ -384,7 +403,7 @@
     <span class="sd">&quot;&quot;&quot;Make a Transformation that retrieves the column `key` from a dataframe as Vec&lt;`T`&gt;.</span>
 <span class="sd">    </span>
 <span class="sd">    :param key: categorical/hashable data type of the key/column name</span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :param K: data type of the key</span>
 <span class="sd">    :type K: RuntimeTypeDescriptor</span>
@@ -392,6 +411,8 @@
 <span class="sd">    :type T: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A select_column step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
@@ -399,17 +420,17 @@
     <span class="n">T</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">K</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_select_column</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_clamp_vec"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_clamp_vec">[docs]</a><span class="k">def</span> <span class="nf">make_clamp_vec</span><span class="p">(</span>
@@ -422,64 +443,69 @@
 <span class="sd">    </span>
 <span class="sd">    :param lower: If datum is less than lower, let datum be lower.</span>
 <span class="sd">    :param upper: If datum is greater than upper, let datum be upper.</span>
-<span class="sd">    :param M: dataset metric space</span>
+<span class="sd">    :param M: dataset metric</span>
 <span class="sd">    :type M: DatasetMetric</span>
 <span class="sd">    :param T: type of data being clamped</span>
 <span class="sd">    :type T: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A clamp_vec step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse_or_infer</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">public_example</span><span class="o">=</span><span class="n">lower</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">lower</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_clamp_vec</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="make_clamp_scalar"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_clamp_scalar">[docs]</a><span class="k">def</span> <span class="nf">make_clamp_scalar</span><span class="p">(</span>
+<div class="viewcode-block" id="make_clamp_sensitivity"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_clamp_sensitivity">[docs]</a><span class="k">def</span> <span class="nf">make_clamp_sensitivity</span><span class="p">(</span>
     <span class="n">lower</span><span class="p">,</span>
     <span class="n">upper</span><span class="p">,</span>
-    <span class="n">M</span><span class="p">:</span> <span class="n">DatasetMetric</span><span class="p">,</span>
+    <span class="n">M</span><span class="p">:</span> <span class="n">SensitivityMetric</span><span class="p">,</span>
     <span class="n">T</span><span class="p">:</span> <span class="n">RuntimeTypeDescriptor</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Make a Transformation that clamps data of type `T` between `lower` and `upper`.</span>
+    <span class="sd">&quot;&quot;&quot;Make a Transformation that clamps the non-dp result of a query of type `T` between `lower` and `upper`.</span>
+<span class="sd">    Used to bound the sensitivity.</span>
 <span class="sd">    </span>
 <span class="sd">    :param lower: If less than lower, return lower.</span>
 <span class="sd">    :param upper: If greater than upper, return upper.</span>
-<span class="sd">    :param M: dataset metric space</span>
-<span class="sd">    :type M: DatasetMetric</span>
+<span class="sd">    :param M: sensitivity metric</span>
+<span class="sd">    :type M: SensitivityMetric</span>
 <span class="sd">    :param T: type of data being clamped</span>
 <span class="sd">    :type T: RuntimeTypeDescriptor</span>
-<span class="sd">    :return: A clamp_scalar step.</span>
+<span class="sd">    :return: A clamp_sensitivity step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">M</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">M</span><span class="p">)</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse_or_infer</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">,</span> <span class="n">public_example</span><span class="o">=</span><span class="n">lower</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">lower</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">M</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">T</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
-    <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_clamp_scalar</span>
+    <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_clamp_sensitivity</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">T</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_bounded_mean"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_bounded_mean">[docs]</a><span class="k">def</span> <span class="nf">make_bounded_mean</span><span class="p">(</span>
@@ -496,12 +522,14 @@
 <span class="sd">    :param upper: Upper bound of input data.</span>
 <span class="sd">    :param n: Number of records in input data.</span>
 <span class="sd">    :type n: int</span>
-<span class="sd">    :param MI: input metric space</span>
+<span class="sd">    :param MI: input metric</span>
 <span class="sd">    :type MI: DatasetMetric</span>
 <span class="sd">    :param MO: output sensitivity space</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :return: A bounded_mean step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
@@ -509,18 +537,18 @@
     <span class="n">T</span> <span class="o">=</span> <span class="n">MO</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">lower</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
+    <span class="n">MI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_bounded_mean</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_bounded_sum"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_bounded_sum">[docs]</a><span class="k">def</span> <span class="nf">make_bounded_sum</span><span class="p">(</span>
@@ -534,12 +562,14 @@
 <span class="sd">    </span>
 <span class="sd">    :param lower: Lower bound of input data.</span>
 <span class="sd">    :param upper: Upper bound of input data.</span>
-<span class="sd">    :param MI: input dataset metric space</span>
+<span class="sd">    :param MI: input dataset metric</span>
 <span class="sd">    :type MI: DatasetMetric</span>
-<span class="sd">    :param MO: output sensitivity metric space</span>
+<span class="sd">    :param MO: output sensitivity metric</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :return: A bounded_sum step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
@@ -547,24 +577,23 @@
     <span class="n">T</span> <span class="o">=</span> <span class="n">MO</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">lower</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">MI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_bounded_sum</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_bounded_sum_n"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_bounded_sum_n">[docs]</a><span class="k">def</span> <span class="nf">make_bounded_sum_n</span><span class="p">(</span>
     <span class="n">lower</span><span class="p">,</span>
     <span class="n">upper</span><span class="p">,</span>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">MI</span><span class="p">:</span> <span class="n">DatasetMetric</span><span class="p">,</span>
     <span class="n">MO</span><span class="p">:</span> <span class="n">SensitivityMetric</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Make a Transformation that computes the sum of bounded data with known length. </span>
@@ -575,40 +604,38 @@
 <span class="sd">    :param upper: Upper bound of input data.</span>
 <span class="sd">    :param n: Number of records in input data.</span>
 <span class="sd">    :type n: int</span>
-<span class="sd">    :param MI: input dataset metric space</span>
-<span class="sd">    :type MI: DatasetMetric</span>
-<span class="sd">    :param MO: output sensitivity metric space</span>
+<span class="sd">    :param MO: output sensitivity metric</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :return: A bounded_sum_n step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
     <span class="n">MO</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MO</span><span class="p">)</span>
     <span class="n">T</span> <span class="o">=</span> <span class="n">MO</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">lower</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_bounded_sum_n</span>
-    <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
+    <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_bounded_variance"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_bounded_variance">[docs]</a><span class="k">def</span> <span class="nf">make_bounded_variance</span><span class="p">(</span>
     <span class="n">lower</span><span class="p">,</span>
     <span class="n">upper</span><span class="p">,</span>
     <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">ddof</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">MI</span><span class="p">:</span> <span class="n">DatasetMetric</span><span class="p">,</span>
-    <span class="n">MO</span><span class="p">:</span> <span class="n">SensitivityMetric</span>
+    <span class="n">MO</span><span class="p">:</span> <span class="n">SensitivityMetric</span><span class="p">,</span>
+    <span class="n">ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Make a Transformation that computes the variance of bounded data. </span>
 <span class="sd">    Use make_clamp_vec to bound data.</span>
@@ -619,12 +646,14 @@
 <span class="sd">    :type n: int</span>
 <span class="sd">    :param ddof: Delta degrees of freedom. Set to 0 if not a sample, 1 for sample estimate.</span>
 <span class="sd">    :type ddof: int</span>
-<span class="sd">    :param MI: input dataset metric space</span>
+<span class="sd">    :param MI: input dataset metric</span>
 <span class="sd">    :type MI: DatasetMetric</span>
-<span class="sd">    :param MO: output sensitivity metric space</span>
+<span class="sd">    :param MO: output sensitivity metric</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :return: A bounded_variance step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
@@ -632,19 +661,19 @@
     <span class="n">T</span> <span class="o">=</span> <span class="n">MO</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">lower</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">upper</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
-    <span class="n">ddof</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">ddof</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">upper</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
+    <span class="n">ddof</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">ddof</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
+    <span class="n">MI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_bounded_variance</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ddof</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">ddof</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_count"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_count">[docs]</a><span class="k">def</span> <span class="nf">make_count</span><span class="p">(</span>
@@ -654,14 +683,16 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Transformation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Make a Transformation that computes a count of the number of records in data.</span>
 <span class="sd">    </span>
-<span class="sd">    :param MI: input dataset metric space</span>
+<span class="sd">    :param MI: input dataset metric</span>
 <span class="sd">    :type MI: DatasetMetric</span>
-<span class="sd">    :param MO: output sensitivity metric space</span>
+<span class="sd">    :param MO: output sensitivity metric</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :param TI: atomic type of input data. Input data is expected to be of the form Vec&lt;TI&gt;.</span>
 <span class="sd">    :type TI: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A count step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
@@ -669,16 +700,16 @@
     <span class="n">TI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">TI</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">TI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">TI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">TI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">TI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_count</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">TI</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">TI</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_count_by"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_count_by">[docs]</a><span class="k">def</span> <span class="nf">make_count_by</span><span class="p">(</span>
@@ -694,9 +725,9 @@
 <span class="sd">    </span>
 <span class="sd">    :param n: Number of records in input data.</span>
 <span class="sd">    :type n: int</span>
-<span class="sd">    :param MI: input dataset metric space</span>
+<span class="sd">    :param MI: input dataset metric</span>
 <span class="sd">    :type MI: DatasetMetric</span>
-<span class="sd">    :param MO: output sensitivity metric space</span>
+<span class="sd">    :param MO: output sensitivity metric</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :param TI: categorical/hashable input data type. Input data must be Vec&lt;TI&gt;.</span>
 <span class="sd">    :type TI: RuntimeTypeDescriptor</span>
@@ -704,6 +735,8 @@
 <span class="sd">    :type TO: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: The carrier type is HashMap&lt;TI, TO&gt;- the counts for each unique data input.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
@@ -712,18 +745,18 @@
     <span class="n">TO</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">TO</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">TI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">TI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">TO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">TO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">)</span>
+    <span class="n">MI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">TI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">TI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">TO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">TO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_count_by</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">TI</span><span class="p">,</span> <span class="n">TO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">TI</span><span class="p">,</span> <span class="n">TO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="make_count_by_categories"><a class="viewcode-back" href="../../../opendp.v1.trans.html#opendp.v1.trans.make_count_by_categories">[docs]</a><span class="k">def</span> <span class="nf">make_count_by_categories</span><span class="p">(</span>
@@ -738,9 +771,9 @@
 <span class="sd">    </span>
 <span class="sd">    :param categories: The set of categories to compute counts for.</span>
 <span class="sd">    :type categories: Any</span>
-<span class="sd">    :param MI: input dataset metric space</span>
+<span class="sd">    :param MI: input dataset metric</span>
 <span class="sd">    :type MI: DatasetMetric</span>
-<span class="sd">    :param MO: output sensitivity metric space</span>
+<span class="sd">    :param MO: output sensitivity metric</span>
 <span class="sd">    :type MO: SensitivityMetric</span>
 <span class="sd">    :param TI: categorical/hashable input data type. Input data must be Vec&lt;TI&gt;.</span>
 <span class="sd">    :type TI: RuntimeTypeDescriptor</span>
@@ -748,6 +781,8 @@
 <span class="sd">    :type TO: RuntimeTypeDescriptor</span>
 <span class="sd">    :return: A count_by_categories step.</span>
 <span class="sd">    :rtype: Transformation</span>
+<span class="sd">    :raises AssertionError: if type of argument differs from the expected type</span>
+<span class="sd">    :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Standardize type arguments.</span>
     <span class="n">MI</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">MI</span><span class="p">)</span>
@@ -756,18 +791,18 @@
     <span class="n">TO</span> <span class="o">=</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="o">=</span><span class="n">TO</span><span class="p">)</span>
     
     <span class="c1"># Convert arguments to c types.</span>
-    <span class="n">categories</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">RuntimeType</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;Vec&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">TI</span><span class="p">]))</span>
-    <span class="n">MI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">MO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">TI</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">TI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
-    <span class="n">TO</span> <span class="o">=</span> <span class="n">_py_to_c</span><span class="p">(</span><span class="n">TO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">categories</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">type_name</span><span class="o">=</span><span class="n">RuntimeType</span><span class="p">(</span><span class="n">origin</span><span class="o">=</span><span class="s1">&#39;Vec&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">TI</span><span class="p">]))</span>
+    <span class="n">MI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">MO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">MO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">TI</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">TI</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
+    <span class="n">TO</span> <span class="o">=</span> <span class="n">py_to_c</span><span class="p">(</span><span class="n">TO</span><span class="p">,</span> <span class="n">c_type</span><span class="o">=</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">)</span>
     
     <span class="c1"># Call library function.</span>
     <span class="n">function</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">opendp_trans__make_count_by_categories</span>
     <span class="n">function</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">AnyObjectPtr</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">]</span>
     <span class="n">function</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">FfiResult</span>
     
-    <span class="k">return</span> <span class="n">_c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">TI</span><span class="p">,</span> <span class="n">TO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
+    <span class="k">return</span> <span class="n">c_to_py</span><span class="p">(</span><span class="n">unwrap</span><span class="p">(</span><span class="n">function</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">MI</span><span class="p">,</span> <span class="n">MO</span><span class="p">,</span> <span class="n">TI</span><span class="p">,</span> <span class="n">TO</span><span class="p">),</span> <span class="n">Transformation</span><span class="p">))</span></div>
 </pre></div>
 
            </div>

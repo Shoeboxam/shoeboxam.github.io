@@ -167,13 +167,13 @@
 <span id="opendp-v1-meas-module"></span><h1>opendp.v1.meas module<a class="headerlink" href="#module-opendp.v1.meas" title="Permalink to this headline">¶</a></h1>
 <dl class="py function">
 <dt id="opendp.v1.meas.make_base_gaussian">
-<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_gaussian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_gaussian" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_gaussian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_gaussian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Measurement that adds noise from the gaussian(<cite>scale</cite>) distribution to a scalar value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scale</strong> – noise scale parameter to the gaussian distribution</p></li>
-<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) – data type to be privatized</p></li>
+<li><p><strong>scale</strong> -- noise scale parameter to the gaussian distribution</p></li>
+<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) -- data type to be privatized</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -182,18 +182,24 @@
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="opendp.v1.meas.make_base_gaussian_vec">
-<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_gaussian_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_gaussian_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_gaussian_vec" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_gaussian_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_gaussian_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_gaussian_vec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Measurement that adds noise from the multivariate gaussian(<cite>scale</cite>) distribution to a vector value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scale</strong> – noise scale parameter to the gaussian distribution</p></li>
-<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) – data type to be privatized</p></li>
+<li><p><strong>scale</strong> -- noise scale parameter to the gaussian distribution</p></li>
+<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) -- data type to be privatized</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -202,22 +208,28 @@
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="opendp.v1.meas.make_base_geometric">
-<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_geometric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">lower</span></em>, <em class="sig-param"><span class="n">upper</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">QO</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_geometric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_geometric" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_geometric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">lower</span></em>, <em class="sig-param"><span class="n">upper</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">QO</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_geometric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_geometric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Measurement that adds noise from the geometric(<cite>scale</cite>) distribution to a scalar value.
 <cite>lower</cite> and <cite>upper</cite> are used to derive the max number of trials necessary when sampling from the geometric distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scale</strong> – noise scale parameter to the geometric distribution</p></li>
-<li><p><strong>lower</strong> – Expected lower bound of data.</p></li>
-<li><p><strong>upper</strong> – Expected upper bound of data.</p></li>
-<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) – Data type to be privatized.</p></li>
-<li><p><strong>QO</strong> (<em>RuntimeTypeDescriptor</em>) – Data type of the sensitivity space.</p></li>
+<li><p><strong>scale</strong> -- noise scale parameter to the geometric distribution</p></li>
+<li><p><strong>lower</strong> -- Expected lower bound of data.</p></li>
+<li><p><strong>upper</strong> -- Expected upper bound of data.</p></li>
+<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) -- Data type to be privatized.</p></li>
+<li><p><strong>QO</strong> (<em>RuntimeTypeDescriptor</em>) -- Data type of the sensitivity space.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -226,19 +238,25 @@
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="opendp.v1.meas.make_base_laplace">
-<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_laplace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_laplace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_laplace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_laplace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_laplace"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_laplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Measurement that adds noise from the laplace(<cite>scale</cite>) distribution to a scalar value.</p>
 <p><a class="reference external" href="https://www.overleaf.com/read/brvrprjhrhwb">This constructor is supported by the linked proof.</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scale</strong> – Noise scale parameter of the laplace distribution.</p></li>
-<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) – Data type to be privatized.</p></li>
+<li><p><strong>scale</strong> -- Noise scale parameter of the laplace distribution.</p></li>
+<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) -- Data type to be privatized.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -247,18 +265,24 @@
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="opendp.v1.meas.make_base_laplace_vec">
-<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_laplace_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>GenericMeta<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_laplace_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_laplace_vec" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_laplace_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">T</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>RuntimeType<span class="p">, </span>_GenericAlias<span class="p">, </span>str<span class="p">, </span>Type<span class="p">[</span>Union<span class="p">[</span>List<span class="p">, </span>int<span class="p">, </span>float<span class="p">, </span>str<span class="p">, </span>bool<span class="p">]</span><span class="p">]</span><span class="p">, </span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_laplace_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_laplace_vec" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Measurement that adds noise from the multivariate laplace(<cite>scale</cite>) distribution to a vector value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>scale</strong> – Noise scale parameter of the laplace distribution.</p></li>
-<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) – Data type to be privatized.</p></li>
+<li><p><strong>scale</strong> -- Noise scale parameter of the laplace distribution.</p></li>
+<li><p><strong>T</strong> (<em>RuntimeTypeDescriptor</em>) -- Data type to be privatized.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -267,22 +291,28 @@
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="opendp.v1.meas.make_base_stability">
-<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_stability</code><span class="sig-paren">(</span><em class="sig-param">n: int, scale, threshold, MI: opendp.v1.typing.SensitivityMetric, TIK: Union[RuntimeType, GenericMeta, str, Type[Union[int, float, str]], tuple], TIC: Union[RuntimeType, GenericMeta, str, Type[Union[int, float, str]], tuple] = &lt;class 'int'&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_stability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_stability" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">opendp.v1.meas.</code><code class="sig-name descname">make_base_stability</code><span class="sig-paren">(</span><em class="sig-param">n: int, scale, threshold, MI: opendp.v1.typing.SensitivityMetric, TIK: Union[RuntimeType, _GenericAlias, str, Type[Union[List, int, float, str, bool]], tuple], TIC: Union[RuntimeType, _GenericAlias, str, Type[Union[List, int, float, str, bool]], tuple] = &lt;class 'int'&gt;</em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">opendp.v1.mod.Measurement</a><a class="reference internal" href="_modules/opendp/v1/meas.html#make_base_stability"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opendp.v1.meas.make_base_stability" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make a Measurement that implements a stability-based filtering and noising.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<em>int</em>) – Number of records in the input vector.</p></li>
-<li><p><strong>scale</strong> – Noise scale parameter.</p></li>
-<li><p><strong>threshold</strong> – Exclude counts that are less than this minimum value.</p></li>
-<li><p><strong>MI</strong> (<a class="reference internal" href="opendp.v1.typing.html#opendp.v1.typing.SensitivityMetric" title="opendp.v1.typing.SensitivityMetric"><em>SensitivityMetric</em></a>) – Input metric space.</p></li>
-<li><p><strong>TIK</strong> (<em>RuntimeTypeDescriptor</em>) – Data type of input key- must be hashable/categorical.</p></li>
-<li><p><strong>TIC</strong> (<em>RuntimeTypeDescriptor</em>) – Data type of input count- must be integral.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) -- Number of records in the input vector.</p></li>
+<li><p><strong>scale</strong> -- Noise scale parameter.</p></li>
+<li><p><strong>threshold</strong> -- Exclude counts that are less than this minimum value.</p></li>
+<li><p><strong>MI</strong> (<a class="reference internal" href="opendp.v1.typing.html#opendp.v1.typing.SensitivityMetric" title="opendp.v1.typing.SensitivityMetric"><em>SensitivityMetric</em></a>) -- Input metric.</p></li>
+<li><p><strong>TIK</strong> (<em>RuntimeTypeDescriptor</em>) -- Data type of input key- must be hashable/categorical.</p></li>
+<li><p><strong>TIC</strong> (<em>RuntimeTypeDescriptor</em>) -- Data type of input count- must be integral.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -290,6 +320,12 @@
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.Measurement" title="opendp.v1.mod.Measurement">Measurement</a></p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> -- if type of argument differs from the expected type</p></li>
+<li><p><a class="reference internal" href="opendp.v1.mod.html#opendp.v1.mod.OpenDPException" title="opendp.v1.mod.OpenDPException"><strong>OpenDPException</strong></a> -- packaged error from the core OpenDP library</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

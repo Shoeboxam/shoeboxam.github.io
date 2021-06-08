@@ -157,7 +157,37 @@
     <span class="sd">&quot;&quot;&quot;A differentially private unit of computation.</span>
 <span class="sd">    A measurement contains a function and a privacy relation.</span>
 <span class="sd">    The function releases a differentially-private release.</span>
-<span class="sd">    The privacy relation maps from an input metric space to an output measure space.</span>
+<span class="sd">    The privacy relation maps from an input metric to an output measure.</span>
+
+<span class="sd">    :example:</span>
+
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.mod import Measurement</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # create an instance of Measurement using a constructor from the meas module</span>
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.meas import make_base_geometric</span>
+<span class="sd">    &gt;&gt;&gt; base_geometric: Measurement = make_base_geometric(scale=2., lower=0, upper=20)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # invoke the measurement (invoke and __call__ are equivalent)</span>
+<span class="sd">    &gt;&gt;&gt; base_geometric.invoke(100)  # -&gt; 101</span>
+<span class="sd">    &gt;&gt;&gt; base_geometric(100)  # -&gt; 99</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # check the measurement&#39;s relation at</span>
+<span class="sd">    &gt;&gt;&gt; #     (1, 0.5): (L1Sensitivity&lt;u32&gt;, MaxDivergence)</span>
+<span class="sd">    &gt;&gt;&gt; assert base_geometric.check(1, 0.5)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # chain with a transformation from the trans module</span>
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.trans import make_count</span>
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.typing import HammingDistance, L1Sensitivity</span>
+<span class="sd">    &gt;&gt;&gt; chained = (</span>
+<span class="sd">    &gt;&gt;&gt;     make_count(MI=HammingDistance, MO=L1Sensitivity[int], TI=int) &gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt;     base_geometric</span>
+<span class="sd">    &gt;&gt;&gt; )</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # the resulting measurement has the same features</span>
+<span class="sd">    &gt;&gt;&gt; chained([1, 2, 3])  # -&gt; 4</span>
+<span class="sd">    &gt;&gt;&gt; # check the chained measurement&#39;s relation at</span>
+<span class="sd">    &gt;&gt;&gt; #     (1, 0.5): (HammingDistance, MaxDivergence)</span>
+<span class="sd">    &gt;&gt;&gt; assert chained.check(1, 0.5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_type_</span> <span class="o">=</span> <span class="n">AnyMeasurement</span>
 
@@ -170,6 +200,7 @@
 <span class="sd">        </span>
 <span class="sd">        :param arg: Input to the measurement.</span>
 <span class="sd">        :return: differentially-private release</span>
+<span class="sd">        :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">measurement_invoke</span>
         <span class="k">return</span> <span class="n">measurement_invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span></div>
@@ -177,8 +208,8 @@
 <div class="viewcode-block" id="Measurement.check"><a class="viewcode-back" href="../../../opendp.v1.mod.html#opendp.v1.mod.Measurement.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Check if the measurement satisfies the privacy relation at `d_in`, `d_out`.</span>
 <span class="sd">        </span>
-<span class="sd">        :param d_in: Distance in terms of the input metric space.</span>
-<span class="sd">        :param d_out: Distance in terms of the output measure space.</span>
+<span class="sd">        :param d_in: Distance in terms of the input metric.</span>
+<span class="sd">        :param d_out: Distance in terms of the output measure.</span>
 <span class="sd">        :param debug: Enable to raise Exceptions to help identify why the privacy relation failed.</span>
 <span class="sd">        :return: If True, a release is differentially private at `d_in`, `d_out`.</span>
 <span class="sd">        :rtype: bool</span>
@@ -196,9 +227,9 @@
             <span class="k">raise</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>  <span class="c1"># pylint: disable=import-error</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the input metric space.</span>
-<span class="sd">        This may be any integral type for dataset metric spaces, or any numeric type for sensitivity metric spaces.</span>
+    <span class="k">def</span> <span class="nf">input_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the input metric.</span>
+<span class="sd">        This may be any integral type for dataset metrics, or any numeric type for sensitivity metrics.</span>
 <span class="sd">        </span>
 <span class="sd">        :return: distance type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -207,8 +238,8 @@
         <span class="k">return</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">measurement_input_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">output_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>  <span class="c1"># pylint: disable=import-error</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the output measure space.</span>
+    <span class="k">def</span> <span class="nf">output_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the output measure.</span>
 <span class="sd">        This is the type that the budget is expressed in.</span>
 <span class="sd">        </span>
 <span class="sd">        :return: distance type</span>
@@ -218,7 +249,7 @@
         <span class="k">return</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">measurement_output_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_carrier_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>  <span class="c1"># pylint: disable=import-error</span>
+    <span class="k">def</span> <span class="nf">input_carrier_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the carrier type of the input domain.</span>
 <span class="sd">        Any member of the input domain is a member of the carrier type.</span>
 <span class="sd">        </span>
@@ -237,42 +268,62 @@
     <span class="sd">&quot;&quot;&quot;A non-differentially private unit of computation.</span>
 <span class="sd">    A transformation contains a function and a stability relation.</span>
 <span class="sd">    The function maps from an input domain to an output domain.</span>
-<span class="sd">    The stability relation maps from an input metric space to an output metric space.</span>
+<span class="sd">    The stability relation maps from an input metric to an output metric.</span>
+
+<span class="sd">    :example:</span>
+
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.mod import Transformation</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # create an instance of Transformation using a constructor from the trans module</span>
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.trans import make_count</span>
+<span class="sd">    &gt;&gt;&gt; count: Transformation = make_count(MI=SymmetricDistance, MO=L1Sensitivity[int], TI=int)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # invoke the transformation (invoke and __call__ are equivalent)</span>
+<span class="sd">    &gt;&gt;&gt; count.invoke([1, 2, 3])  # -&gt; 3</span>
+<span class="sd">    &gt;&gt;&gt; count([1, 2, 3])  # -&gt; 3</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # check the transformation&#39;s relation at</span>
+<span class="sd">    &gt;&gt;&gt; #     (1, 1): (SymmetricDistance, L1Sensitivity&lt;u32&gt;)</span>
+<span class="sd">    &gt;&gt;&gt; assert count.check(1, 1)</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # chain with more transformations from the trans module</span>
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.trans import make_split_lines, make_parse_series</span>
+<span class="sd">    &gt;&gt;&gt; from opendp.v1.typing import SymmetricDistance, L1Sensitivity</span>
+<span class="sd">    &gt;&gt;&gt; chained = (</span>
+<span class="sd">    &gt;&gt;&gt;     make_split_lines(M=SymmetricDistance) &gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt;     make_parse_series(impute=True, M=SymmetricDistance, TO=int) &gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt;     count</span>
+<span class="sd">    &gt;&gt;&gt; )</span>
+<span class="sd">    &gt;&gt;&gt;</span>
+<span class="sd">    &gt;&gt;&gt; # the resulting transformation has the same features</span>
+<span class="sd">    &gt;&gt;&gt; chained(&quot;1\\n2\\n3&quot;)  # -&gt; 3</span>
+<span class="sd">    &gt;&gt;&gt; assert chained.check(1, 1)  # both chained transformations were 1-stable</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_type_</span> <span class="o">=</span> <span class="n">AnyTransformation</span>
-
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
-        <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">transformation_invoke</span>
-        <span class="k">return</span> <span class="n">transformation_invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Transformation.invoke"><a class="viewcode-back" href="../../../opendp.v1.mod.html#opendp.v1.mod.Transformation.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Execute a non-differentially-private query with `arg`.</span>
 
 <span class="sd">        :param arg: Input to the transformation.</span>
 <span class="sd">        :return: non-differentially-private answer</span>
+<span class="sd">        :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">transformation_invoke</span>
         <span class="k">return</span> <span class="n">transformation_invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Measurement&quot;</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Measurement</span><span class="p">):</span>
-            <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">make_chain_mt</span>
-            <span class="k">return</span> <span class="n">make_chain_mt</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Transformation</span><span class="p">):</span>
-            <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">make_chain_tt</span>
-            <span class="k">return</span> <span class="n">make_chain_tt</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
-
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rshift expected a measurement or transformation, got </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">transformation_invoke</span>
+        <span class="k">return</span> <span class="n">transformation_invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Transformation.check"><a class="viewcode-back" href="../../../opendp.v1.mod.html#opendp.v1.mod.Transformation.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Check if the transformation satisfies the stability relation at `d_in`, `d_out`.</span>
 
-<span class="sd">        :param d_in: Distance in terms of the input metric space.</span>
-<span class="sd">        :param d_out: Distance in terms of the output metric space.</span>
+<span class="sd">        :param d_in: Distance in terms of the input metric.</span>
+<span class="sd">        :param d_out: Distance in terms of the output metric.</span>
 <span class="sd">        :param debug: Enable to raise Exceptions to help identify why the stability relation failed.</span>
 <span class="sd">        :return: True if the relation passes. False if the relation failed.</span>
 <span class="sd">        :rtype: bool</span>
+<span class="sd">        :raises OpenDPException: packaged error from the core OpenDP library</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">transformation_check</span>
 
@@ -286,10 +337,21 @@
                 <span class="k">return</span> <span class="kc">False</span>
             <span class="k">raise</span></div>
 
+    <span class="k">def</span> <span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Measurement&quot;</span><span class="p">,</span> <span class="s2">&quot;Transformation&quot;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Measurement</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">make_chain_mt</span>
+            <span class="k">return</span> <span class="n">make_chain_mt</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Transformation</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">opendp.v1.core</span> <span class="kn">import</span> <span class="n">make_chain_tt</span>
+            <span class="k">return</span> <span class="n">make_chain_tt</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rshift expected a measurement or transformation, got </span><span class="si">{</span><span class="n">other</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>  <span class="c1"># pylint: disable=import-error</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the input metric space.</span>
-<span class="sd">        This may be any integral type for dataset metric spaces, or any numeric type for sensitivity metric spaces.</span>
+    <span class="k">def</span> <span class="nf">input_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the input metric.</span>
+<span class="sd">        This may be any integral type for dataset metrics, or any numeric type for sensitivity metrics.</span>
 
 <span class="sd">        :return: distance type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -298,9 +360,9 @@
         <span class="k">return</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">transformation_input_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">output_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>  <span class="c1"># pylint: disable=import-error</span>
-        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the output metric space.</span>
-<span class="sd">        This may be any integral type for dataset metric spaces, or any numeric type for sensitivity metric spaces.</span>
+    <span class="k">def</span> <span class="nf">output_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Retrieve the distance type of the output metric.</span>
+<span class="sd">        This may be any integral type for dataset metrics, or any numeric type for sensitivity metrics.</span>
 
 <span class="sd">        :return: distance type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -309,7 +371,7 @@
         <span class="k">return</span> <span class="n">RuntimeType</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">transformation_output_distance_type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
     
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">input_carrier_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>  <span class="c1"># pylint: disable=import-error</span>
+    <span class="k">def</span> <span class="nf">input_carrier_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Retrieve the carrier type of the input domain.</span>
 <span class="sd">        Any member of the input domain is a member of the carrier type.</span>
 
@@ -333,7 +395,7 @@
 <span class="sd">    The variant attribute corresponds to `one of the following variants &lt;https://github.com/opendp/opendp/blob/53ec58d01762ca5ceee08590d7e7b725bbdafcf6/rust/opendp/src/error.rs#L46-L87&gt;`_ and can be matched on.</span>
 <span class="sd">    Error variants may change in library updates.</span>
 
-<span class="sd">    TODO: Link to generated rust documentation for ErrorVariant.</span>
+<span class="sd">    .. todo:: Link to generated rust documentation for ErrorVariant.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variant</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">inner_traceback</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variant</span> <span class="o">=</span> <span class="n">variant</span>

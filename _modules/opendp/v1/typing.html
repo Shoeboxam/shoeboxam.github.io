@@ -167,7 +167,7 @@
     <span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span>  <span class="c1"># as the normalized type -- HammingDistance; RuntimeType.parse(&quot;i32&quot;)</span>
     <span class="n">_GenericAlias</span><span class="p">,</span>  <span class="c1"># a python type hint from the std typing module -- List[int]</span>
     <span class="nb">str</span><span class="p">,</span>  <span class="c1"># plaintext string in terms of rust types -- &quot;Vec&lt;i32&gt;&quot;</span>
-    <span class="n">Type</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]],</span>  <span class="c1"># using the python type class itself -- int; float; bool</span>
+    <span class="n">Type</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">List</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]],</span>  <span class="c1"># using the python type class itself -- int; float; bool</span>
     <span class="nb">tuple</span><span class="p">,</span>  <span class="c1"># shorthand for tuples -- (float, &quot;f64&quot;); (HammingDistance, List[int])</span>
 <span class="p">]</span>
 
@@ -197,8 +197,10 @@
 
 <div class="viewcode-block" id="RuntimeType.parse"><a class="viewcode-back" href="../../../opendp.v1.typing.html#opendp.v1.typing.RuntimeType.parse">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">type_name</span><span class="p">:</span> <span class="n">RuntimeTypeDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;RuntimeType&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Normalize type information into a normalized type representation.</span>
-<span class="sd">        Type information may be expressed as</span>
+        <span class="sd">&quot;&quot;&quot;Parse type descriptor into a normalized rust type.</span>
+
+<span class="sd">        Type descriptor may be expressed as:</span>
+
 <span class="sd">        - python type hints from std typing module</span>
 <span class="sd">        - plaintext rust type strings for setting specific bit depth</span>
 <span class="sd">        - python type class - one of {int, str, float, bool}</span>
@@ -207,6 +209,17 @@
 <span class="sd">        :param type_name: type specifier</span>
 <span class="sd">        :return: Normalized type. If the type has subtypes, returns a RuntimeType, else a str.</span>
 <span class="sd">        :rtype: Union[&quot;RuntimeType&quot;, str]</span>
+<span class="sd">        :raises ValueError: if `type_name` fails to parse</span>
+
+<span class="sd">        :examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from opendp.v1.typing import RuntimeType, L1Sensitivity</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.parse(int) == &quot;i32&quot;</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.parse(&quot;i32&quot;) == &quot;i32&quot;</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.parse(L1Sensitivity[int]) == &quot;L1Sensitivity&lt;i32&gt;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.parse(L1Sensitivity[&quot;f32&quot;]) == &quot;L1Sensitivity&lt;f32&gt;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; from typing import List</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.parse(List[int]) == &quot;Vec&lt;int&gt;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">type_name</span><span class="p">,</span> <span class="n">RuntimeType</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">type_name</span>
@@ -259,6 +272,15 @@
 <span class="sd">        :param public_example: data used to infer the type</span>
 <span class="sd">        :return: Normalized type. If the type has subtypes, returns a RuntimeType, else a str.</span>
 <span class="sd">        :rtype: Union[&quot;RuntimeType&quot;, str]</span>
+<span class="sd">        :raises UnknownTypeException: if inference fails on `public_example`</span>
+
+<span class="sd">        :examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; from opendp.v1.typing import RuntimeType, L1Sensitivity</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.infer(23) == &quot;i32&quot;</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.infer(12.) == &quot;f64&quot;</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.infer([&quot;A&quot;, &quot;B&quot;]) == &quot;Vec&lt;String&gt;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; assert RuntimeType.infer((12., True, &quot;A&quot;)) == &quot;(f64,  bool,String)&quot; # eq doesn&#39;t care about whitespace</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">public_example</span><span class="p">)</span> <span class="ow">in</span> <span class="n">ELEMENTARY_TYPES</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">ELEMENTARY_TYPES</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">public_example</span><span class="p">)]</span>
@@ -286,6 +308,8 @@
 <span class="sd">        :param public_example: data used to infer the type</span>
 <span class="sd">        :return: Normalized type. If the type has subtypes, returns a RuntimeType, else a str.</span>
 <span class="sd">        :rtype: Union[&quot;RuntimeType&quot;, str]</span>
+<span class="sd">        :raises ValueError: if `type_name` fails to parse</span>
+<span class="sd">        :raises UnknownTypeException: if inference fails on `public_example` or no args are supplied</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">type_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">type_name</span><span class="p">)</span>
@@ -299,6 +323,7 @@
 
 <span class="sd">        :param expected: the type that the data will be converted to</span>
 <span class="sd">        :param inferred: the type inferred from data</span>
+<span class="sd">        :raises AssertionError: if `expected` type differs significantly from `inferred` type</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">inferred</span><span class="p">,</span> <span class="n">UnknownType</span><span class="p">):</span>
             <span class="k">return</span>
