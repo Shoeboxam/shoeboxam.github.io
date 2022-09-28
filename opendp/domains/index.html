@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Various implementations of Domain."><meta name="keywords" content="rust, rustlang, rust-lang, domains"><title>opendp::domains - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script defer src="../../main.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+<script>
+  "use strict";
+  document.addEventListener("DOMContentLoaded", function () {
+      var maths = document.getElementsByClassName("language-math");
+      for (var i=0; i<maths.length; i++) {
+          var el = maths[i];
+          katex.render(el.innerText, el, {displayMode: true});
+      }
+
+      var codes = document.getElementsByTagName("code");
+      for (i=0; i<codes.length; i++) {
+          el = codes[i];
+          if (el.classList.contains("language-math")) continue;
+          if (el.classList.contains("language-inline-math")) {
+              katex.render(el.innerText, el);
+              continue;
+          }
+
+          var parent = el.parentNode;
+          if (parent.nodeName.toLowerCase() === "pre") continue;
+          // TODO: Can this be done with DOM manipulation rather than string manipulation?
+          // https://stackoverflow.com/q/48438067/3019990
+          var inlineMath = "$" + el.outerHTML + "$";
+          if (parent.innerHTML.indexOf(inlineMath) !== -1) {
+              el.classList.add("language-inline-math");
+              parent.innerHTML = parent.innerHTML.replace("$" + el.outerHTML + "$", el.outerHTML);
+              i--;
+          }
+      }
+  });
+</script>
+
+</head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Module domains</a></h2><div class="sidebar-elems"><section><div class="block"><ul><li><a href="#structs">Structs</a></li><li><a href="#traits">Traits</a></li></ul></div></section></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../opendp/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn"><span class="in-band">Module <a href="../index.html">opendp</a>::<wbr><a class="mod" href="#">domains</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/opendp/domains/mod.rs.html#1-516">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Various implementations of Domain.</p>
+<p>These different versions of <a href="../core/trait.Domain.html" title="Domain"><code>Domain</code></a> provide a general set of models used throughout OpenDP.
+Most of the implementations are generic, with the type parameter setting the underlying <a href="../core/trait.Domain.html#associatedtype.Carrier" title="Domain::Carrier"><code>Domain::Carrier</code></a>
+type.</p>
+<p>A data domain is a representation of the set of values on which the function associated with a transformation or measurement can operate.
+Each metric (see <a href="../metrics/index.html" title="crate::metrics"><code>crate::metrics</code></a>) is associated with certain data domains. 
+The <a href="../core/trait.Domain.html" title="Domain"><code>Domain</code></a> trait is implemented for all domains used in OpenDP.</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AllDomain.html" title="opendp::domains::AllDomain struct">AllDomain</a></div><div class="item-right docblock-short"><p>Proof Definition</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.BoundedDomain.html" title="opendp::domains::BoundedDomain struct">BoundedDomain</a></div><div class="item-right docblock-short"><p>Proof Definition</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.BoxDomain.html" title="opendp::domains::BoxDomain struct">BoxDomain</a></div><div class="item-right docblock-short"><p>A Domain that carries an underlying Domain in a Box.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.DataDomain.html" title="opendp::domains::DataDomain struct">DataDomain</a></div><div class="item-right docblock-short"><p>A Domain that unwraps a Data wrapper.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.InherentNullDomain.html" title="opendp::domains::InherentNullDomain struct">InherentNullDomain</a></div><div class="item-right docblock-short"><p>Proof Definition</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.MapDomain.html" title="opendp::domains::MapDomain struct">MapDomain</a></div><div class="item-right docblock-short"><p>A Domain that contains maps of (homogeneous) values.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OptionNullDomain.html" title="opendp::domains::OptionNullDomain struct">OptionNullDomain</a></div><div class="item-right docblock-short"><p>A domain that represents nullity via the Option type.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PairDomain.html" title="opendp::domains::PairDomain struct">PairDomain</a></div><div class="item-right docblock-short"><p>A Domain that contains pairs of values.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SizedDomain.html" title="opendp::domains::SizedDomain struct">SizedDomain</a></div><div class="item-right docblock-short"><p>A Domain that specifies the length of the enclosed domain.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.VectorDomain.html" title="opendp::domains::VectorDomain struct">VectorDomain</a></div><div class="item-right docblock-short"><p>A Domain that contains vectors of (homogeneous) values.</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.CollectionDomain.html" title="opendp::domains::CollectionDomain trait">CollectionDomain</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.InherentNull.html" title="opendp::domains::InherentNull trait">InherentNull</a></div><div class="item-right docblock-short"></div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="opendp" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>

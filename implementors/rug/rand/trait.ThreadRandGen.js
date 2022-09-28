@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["opendp"] = [{"text":"impl <a class=\"trait\" href=\"https://docs.rs/rug/~1.17/rug/rand/trait.ThreadRandGen.html\" title=\"trait rug::rand::ThreadRandGen\">ThreadRandGen</a> for <a class=\"struct\" href=\"opendp/traits/samplers/struct.GeneratorOpenDP.html\" title=\"struct opendp::traits::samplers::GeneratorOpenDP\">GeneratorOpenDP</a>","synthetic":false,"types":["opendp::traits::samplers::GeneratorOpenDP"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()
