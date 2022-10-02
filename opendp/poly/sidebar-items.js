@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"struct":[["PolyDomain","A polymorphic Domain. This admits any value of any type (represented as a Box)."]]};

@@ -1,37 +1,29 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/metrics/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/metrics/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../main.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"><!-- adds support for rendering latex-formatted math notation -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 <script>
-  "use strict";
-  document.addEventListener("DOMContentLoaded", function () {
-      var maths = document.getElementsByClassName("language-math");
-      for (var i=0; i<maths.length; i++) {
-          var el = maths[i];
-          katex.render(el.innerText, el, {displayMode: true});
-      }
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
 
-      var codes = document.getElementsByTagName("code");
-      for (i=0; i<codes.length; i++) {
-          el = codes[i];
-          if (el.classList.contains("language-math")) continue;
-          if (el.classList.contains("language-inline-math")) {
-              katex.render(el.innerText, el);
-              continue;
-          }
-
-          var parent = el.parentNode;
-          if (parent.nodeName.toLowerCase() === "pre") continue;
-          // TODO: Can this be done with DOM manipulation rather than string manipulation?
-          // https://stackoverflow.com/q/48438067/3019990
-          var inlineMath = "$" + el.outerHTML + "$";
-          if (parent.innerHTML.indexOf(inlineMath) !== -1) {
-              el.classList.add("language-inline-math");
-              parent.innerHTML = parent.innerHTML.replace("$" + el.outerHTML + "$", el.outerHTML);
-              i--;
-          }
-      }
-  });
+        let maths = document.getElementsByClassName("language-math");
+        for (var i = 0; i < maths.length; i++) {
+            var el = maths[i];
+            katex.render(el.innerText, el, {displayMode: true, throwOnError: false});
+        }
+    });
 </script>
-
 </head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../opendp/index.html"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
@@ -393,18 +385,6 @@
 <span id="359">359</span>
 <span id="360">360</span>
 <span id="361">361</span>
-<span id="362">362</span>
-<span id="363">363</span>
-<span id="364">364</span>
-<span id="365">365</span>
-<span id="366">366</span>
-<span id="367">367</span>
-<span id="368">368</span>
-<span id="369">369</span>
-<span id="370">370</span>
-<span id="371">371</span>
-<span id="372">372</span>
-<span id="373">373</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Various implementations of Metrics (and associated Distance).</span>
 <span class="doccomment">//! </span>
 <span class="doccomment">//! A Metric is used to measure the distance between data. </span>
@@ -420,7 +400,7 @@
 
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">marker::PhantomData</span>};
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">core</span>::{<span class="ident">DatasetMetric</span>, <span class="ident">Metric</span>, <span class="ident">SensitivityMetric</span>}, <span class="ident">domains::type_name</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">core::Metric</span>, <span class="ident">domains::type_name</span>};
 <span class="kw">use</span> <span class="ident">std::fmt</span>::{<span class="ident">Debug</span>, <span class="ident">Formatter</span>};
 
 <span class="doccomment">/// The type that represents the distance between datasets.</span>
@@ -437,9 +417,9 @@
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two vectors $`u, v \in \texttt{D}`$ and any $`d`$ of type [`IntDistance`], </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the symmetric distance metric </span>
-<span class="doccomment">/// (abbreviated as $`d_{Sym}`$) whenever </span>
+<span class="doccomment">/// For any two vectors $u, v \in \texttt{D}$ and any $d$ of type [`IntDistance`], </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the symmetric distance metric </span>
+<span class="doccomment">/// (abbreviated as $d_{Sym}$) whenever </span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{Sym}(u, v) = |MultiSet(u) \Delta MultiSet(v)| \leq d</span>
@@ -471,9 +451,6 @@
     <span class="kw">type</span> <span class="ident">Distance</span> <span class="op">=</span> <span class="ident">IntDistance</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">DatasetMetric</span> <span class="kw">for</span> <span class="ident">SymmetricDistance</span> {}
-
-
 <span class="doccomment">/// The smallest number of insertions or deletions to make two datasets equivalent.</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// An *insertion* to a dataset is an addition of an element at a specific index,</span>
@@ -486,9 +463,9 @@
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two vectors $`u, v \in \texttt{D}`$ and any $`d`$ of type [`IntDistance`], </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the insert-delete distance metric </span>
-<span class="doccomment">/// (abbreviated as $`d_{ID}`$) whenever </span>
+<span class="doccomment">/// For any two vectors $u, v \in \texttt{D}$ and any $d$ of type [`IntDistance`], </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the insert-delete distance metric </span>
+<span class="doccomment">/// (abbreviated as $d_{ID}$) whenever </span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{ID}(u, v) \leq d</span>
@@ -521,8 +498,6 @@
     <span class="kw">type</span> <span class="ident">Distance</span> <span class="op">=</span> <span class="ident">IntDistance</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">DatasetMetric</span> <span class="kw">for</span> <span class="ident">InsertDeleteDistance</span> {}
-
 
 <span class="doccomment">/// The smallest number of changes to make two equal-length datasets equivalent.</span>
 <span class="doccomment">/// </span>
@@ -536,13 +511,13 @@
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two datasets $`u, v \in \texttt{D}`$ and any $`d`$ of type [`IntDistance`], </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the change-one distance metric (abbreviated as $`d_{CO}`$) whenever</span>
+<span class="doccomment">/// For any two datasets $u, v \in \texttt{D}$ and any $d$ of type [`IntDistance`], </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the change-one distance metric (abbreviated as $d_{CO}$) whenever</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{CO}(u, v) = d_{Sym}(u, v) / 2 \leq d</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// $`d_{Sym}`$ is in reference to the [`SymmetricDistance`].</span>
+<span class="doccomment">/// $d_{Sym}$ is in reference to the [`SymmetricDistance`].</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// # Note</span>
 <span class="doccomment">/// Since the dataset size is fixed, </span>
@@ -579,8 +554,6 @@
     <span class="kw">type</span> <span class="ident">Distance</span> <span class="op">=</span> <span class="ident">IntDistance</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">DatasetMetric</span> <span class="kw">for</span> <span class="ident">ChangeOneDistance</span> {}
-
 <span class="doccomment">/// The number of elements that differ between two equal-length datasets.</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// This metric is sensitive to data ordering.</span>
@@ -593,8 +566,8 @@
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two datasets $`u, v \in \texttt{D}`$ and any $`d`$ of type [`IntDistance`], </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the Hamming distance metric (abbreviated as $`d_{Ham}`$) whenever</span>
+<span class="doccomment">/// For any two datasets $u, v \in \texttt{D}$ and any $d$ of type [`IntDistance`], </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the Hamming distance metric (abbreviated as $d_{Ham}$) whenever</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{Ham}(u, v) = \#\{i: u_i \neq v_i\} \leq d</span>
@@ -631,22 +604,19 @@
     <span class="kw">type</span> <span class="ident">Distance</span> <span class="op">=</span> <span class="ident">IntDistance</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">DatasetMetric</span> <span class="kw">for</span> <span class="ident">HammingDistance</span> {}
-
-
-<span class="doccomment">/// The $`L_p`$ distance between two vector-valued aggregates.</span>
+<span class="doccomment">/// The $L_p$ distance between two vector-valued aggregates.</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
-<span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two vectors $`u, v \in \texttt{D}`$ and $`d`$ of generic type $`\texttt{Q}`$, </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the the $`L_p`$ distance metric (abbreviated as $`d_{LP}`$) whenever</span>
+<span class="doccomment">/// ### $d$-closeness</span>
+<span class="doccomment">/// For any two vectors $u, v \in \texttt{D}$ and $d$ of generic type $\texttt{Q}$, </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the the $L_p$ distance metric (abbreviated as $d_{LP}$) whenever</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{LP}(u, v) = \|u_i - v_i\|_p \leq d</span>
 <span class="doccomment">/// ```</span>
 <span class="doccomment">/// </span>
-<span class="doccomment">/// If $`u`$ and $`v`$ are different lengths, then</span>
+<span class="doccomment">/// If $u$ and $v$ are different lengths, then</span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{LP}(u, v) = \infty</span>
 <span class="doccomment">/// ```</span>
@@ -676,14 +646,13 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="kw">const</span> <span class="ident">P</span>: <span class="ident">usize</span>, <span class="ident">Q</span><span class="op">&gt;</span> <span class="ident">Metric</span> <span class="kw">for</span> <span class="ident">LpDistance</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">Q</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Distance</span> <span class="op">=</span> <span class="ident">Q</span>;
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="kw">const</span> <span class="ident">P</span>: <span class="ident">usize</span>, <span class="ident">Q</span><span class="op">&gt;</span> <span class="ident">SensitivityMetric</span> <span class="kw">for</span> <span class="ident">LpDistance</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">Q</span><span class="op">&gt;</span> {}
 
-<span class="doccomment">/// The $`L_1`$ distance between two vector-valued aggregates.</span>
+<span class="doccomment">/// The $L_1$ distance between two vector-valued aggregates.</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// Refer to [`LpDistance`] for details.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">L1Distance</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">LpDistance</span><span class="op">&lt;</span><span class="number">1</span>, <span class="ident">Q</span><span class="op">&gt;</span>;
 
-<span class="doccomment">/// The $`L_2`$ distance between two vector-valued aggregates.</span>
+<span class="doccomment">/// The $L_2$ distance between two vector-valued aggregates.</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// Refer to [`LpDistance`] for details.</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">L2Distance</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">LpDistance</span><span class="op">&lt;</span><span class="number">2</span>, <span class="ident">Q</span><span class="op">&gt;</span>;
@@ -693,8 +662,8 @@
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two scalars $`u, v \in \texttt{D}`$ and $`d`$ of generic type $`\texttt{Q}`$, </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the the the absolute distance metric (abbreviated as $`d_{Abs}`$) whenever</span>
+<span class="doccomment">/// For any two scalars $u, v \in \texttt{D}$ and $d$ of generic type $\texttt{Q}$, </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the the the absolute distance metric (abbreviated as $d_{Abs}$) whenever</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{Abs}(u, v) = |u - v| \leq d</span>
@@ -722,7 +691,6 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="ident">Metric</span> <span class="kw">for</span> <span class="ident">AbsoluteDistance</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Distance</span> <span class="op">=</span> <span class="ident">Q</span>;
 }
-<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> <span class="ident">SensitivityMetric</span> <span class="kw">for</span> <span class="ident">AbsoluteDistance</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span> {}
 
 <span class="doccomment">/// Indicates if two elements are equal to each other.</span>
 <span class="doccomment">/// </span>
@@ -732,8 +700,8 @@
 <span class="doccomment">/// # Proof Definition</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ### `d`-closeness</span>
-<span class="doccomment">/// For any two datasets $`u, v \in \texttt{AllDomain&lt;T&gt;}`$ and any $`d`$ of type [`IntDistance`], </span>
-<span class="doccomment">/// we say that $`u, v`$ are $`d`$-close under the discrete metric (abbreviated as $`d_{Eq}`$) whenever</span>
+<span class="doccomment">/// For any two datasets $u, v \in \texttt{AllDomain&lt;T&gt;}$ and any $d$ of type [`IntDistance`], </span>
+<span class="doccomment">/// we say that $u, v$ are $d$-close under the discrete metric (abbreviated as $d_{Eq}$) whenever</span>
 <span class="doccomment">/// </span>
 <span class="doccomment">/// ```math</span>
 <span class="doccomment">/// d_{Eq}(u, v) = \mathbb{1}[u = v] \leq d</span>

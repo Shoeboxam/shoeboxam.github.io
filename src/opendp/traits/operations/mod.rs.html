@@ -1,37 +1,29 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/traits/operations/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/traits/operations/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><!-- adds support for rendering latex-formatted math notation -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 <script>
-  "use strict";
-  document.addEventListener("DOMContentLoaded", function () {
-      var maths = document.getElementsByClassName("language-math");
-      for (var i=0; i<maths.length; i++) {
-          var el = maths[i];
-          katex.render(el.innerText, el, {displayMode: true});
-      }
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
 
-      var codes = document.getElementsByTagName("code");
-      for (i=0; i<codes.length; i++) {
-          el = codes[i];
-          if (el.classList.contains("language-math")) continue;
-          if (el.classList.contains("language-inline-math")) {
-              katex.render(el.innerText, el);
-              continue;
-          }
-
-          var parent = el.parentNode;
-          if (parent.nodeName.toLowerCase() === "pre") continue;
-          // TODO: Can this be done with DOM manipulation rather than string manipulation?
-          // https://stackoverflow.com/q/48438067/3019990
-          var inlineMath = "$" + el.outerHTML + "$";
-          if (parent.innerHTML.indexOf(inlineMath) !== -1) {
-              el.classList.add("language-inline-math");
-              parent.innerHTML = parent.innerHTML.replace("$" + el.outerHTML + "$", el.outerHTML);
-              i--;
-          }
-      }
-  });
+        let maths = document.getElementsByClassName("language-math");
+        for (var i = 0; i < maths.length; i++) {
+            var el = maths[i];
+            katex.render(el.innerText, el, {displayMode: true, throwOnError: false});
+        }
+    });
 </script>
-
 </head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../opendp/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
@@ -240,6 +232,104 @@
 <span id="206">206</span>
 <span id="207">207</span>
 <span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::cmp::Ordering</span>;
 <span class="kw">use</span> <span class="ident">std::ops</span>::{<span class="ident">BitAnd</span>, <span class="ident">Shl</span>, <span class="ident">Shr</span>, <span class="ident">Sub</span>, <span class="ident">BitOr</span>};
 
@@ -249,16 +339,51 @@
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::ExactIntCast</span>;
 
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CheckNull</span> { <span class="kw">fn</span> <span class="ident">is_null</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span>; }
+<span class="doccomment">/// Checks if a value is null.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Since [`crate::domains::AllDomain`] only includes non-null values,</span>
+<span class="doccomment">/// this trait is necessary for its member check.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CheckNull</span> { 
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `value` of type `Self`, returns true if is null, otherwise false.</span>
+    <span class="kw">fn</span> <span class="ident">is_null</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span>; 
+}
+
+<span class="doccomment">/// Defines an example null value inherent to `Self`.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InherentNull</span>: <span class="ident">CheckNull</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// NULL is a constant such that `Self::is_null(Self::NULL)` is true.</span>
+    <span class="kw">const</span> <span class="ident">NULL</span>: <span class="self">Self</span>;
+}
 
 <span class="doccomment">/// TotalOrd is well-defined on types that are Ord on their non-null values.</span>
+<span class="doccomment">/// </span>
 <span class="doccomment">/// The framework provides a way to ensure values are non-null at runtime.</span>
 <span class="doccomment">/// This trait should only be used when the framework can rely on these assurances.</span>
 <span class="doccomment">/// TotalOrd shares the same interface as Ord, but with a total_ prefix on methods</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TotalOrd</span>: <span class="ident">PartialOrd</span> <span class="op">+</span> <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise `out` is the [`Ordering`] of `self` and `other` as defined by [`PartialOrd`].</span>
     <span class="kw">fn</span> <span class="ident">total_cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span>;
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Some(out)` where `out` is the greater of `self` and `other` as defined by [`PartialOrd`].</span>
     <span class="kw">fn</span> <span class="ident">total_max</span>(<span class="self">self</span>, <span class="ident">other</span>: <span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="ident">max_by</span>(<span class="self">self</span>, <span class="ident">other</span>, <span class="ident">TotalOrd::total_cmp</span>) }
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Some(out)` where `out` is the lesser of `self` and `other` as defined by [`PartialOrd`].</span>
     <span class="kw">fn</span> <span class="ident">total_min</span>(<span class="self">self</span>, <span class="ident">other</span>: <span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="ident">min_by</span>(<span class="self">self</span>, <span class="ident">other</span>, <span class="ident">TotalOrd::total_cmp</span>) }
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any three values `self`, `min` and `max` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if any of `self`, `min` or `max` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Some(out)` where `out` is `min` if $self \lt min$, `max` if $self \gt max$, or else `self`.</span>
     <span class="kw">fn</span> <span class="ident">total_clamp</span>(<span class="self">self</span>, <span class="ident">min</span>: <span class="self">Self</span>, <span class="ident">max</span>: <span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">min</span> <span class="op">&gt;</span> <span class="ident">max</span> { <span class="kw">return</span> <span class="macro">fallible!</span>(<span class="ident">FailedFunction</span>, <span class="string">&quot;min cannot be greater than max&quot;</span>) }
         <span class="prelude-val">Ok</span>(<span class="kw">if</span> <span class="kw">let</span> <span class="ident">Ordering::Less</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">total_cmp</span>(<span class="kw-2">&amp;</span><span class="ident">min</span>)<span class="question-mark">?</span> {
@@ -270,54 +395,109 @@
         })
     }
 
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Ok(out)` where `out` is true if $self \lt other$.</span>
     <span class="kw">fn</span> <span class="ident">total_lt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">total_cmp</span>(<span class="ident">other</span>)<span class="question-mark">?</span>.<span class="ident">is_lt</span>())
     }
 
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Ok(out)` where `out` is true if $self \le other$.</span>
     <span class="kw">fn</span> <span class="ident">total_le</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">total_cmp</span>(<span class="ident">other</span>)<span class="question-mark">?</span>.<span class="ident">is_le</span>())
     }
 
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Ok(out)` where `out` is true if $self \gt other$.</span>
     <span class="kw">fn</span> <span class="ident">total_gt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">total_cmp</span>(<span class="ident">other</span>)<span class="question-mark">?</span>.<span class="ident">is_gt</span>())
     }
 
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `other` of type `Self`, returns `Ok(out)` or `Err(e)`.</span>
+    <span class="doccomment">/// The implementation returns `Err(e)` if either `self` or `other` are null.</span>
+    <span class="doccomment">/// Otherwise returns `Ok(out)` where `out` is true if $self \ge other$.</span>
     <span class="kw">fn</span> <span class="ident">total_ge</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> {
         <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">total_cmp</span>(<span class="ident">other</span>)<span class="question-mark">?</span>.<span class="ident">is_ge</span>())
     }
 }
 
 
+<span class="doccomment">/// Bitwise consts and decompositions for float types.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">FloatBits</span>: <span class="ident">Copy</span> <span class="op">+</span> <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">ExactIntCast</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Bits</span><span class="op">&gt;</span> {
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// An associated type that captures the bit representation of Self.</span>
     <span class="kw">type</span> <span class="ident">Bits</span>: <span class="ident">Copy</span> <span class="op">+</span> <span class="ident">One</span> <span class="op">+</span> <span class="ident">Zero</span> <span class="op">+</span> <span class="ident">Eq</span>
     <span class="op">+</span> <span class="ident">Shr</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">=</span><span class="ident"><span class="self">Self</span>::Bits</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Shl</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">=</span><span class="ident"><span class="self">Self</span>::Bits</span><span class="op">&gt;</span>
     <span class="op">+</span> <span class="ident">BitAnd</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">=</span><span class="ident"><span class="self">Self</span>::Bits</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">BitOr</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">=</span><span class="ident"><span class="self">Self</span>::Bits</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">Sub</span><span class="op">&lt;</span><span class="ident">Output</span><span class="op">=</span><span class="ident"><span class="self">Self</span>::Bits</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span>;
-    <span class="comment">// Number of bits in exponent</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// A constant equal to the number of bits in exponent.</span>
     <span class="kw">const</span> <span class="ident">EXPONENT_BITS</span>: <span class="ident"><span class="self">Self</span>::Bits</span>;
-    <span class="comment">// Number of bits in mantissa, equal to Self::MANTISSA_DIGITS - 1</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// A constant equal to the number of bits in mantissa.</span>
+    <span class="doccomment">/// </span>
+    <span class="doccomment">/// # Note</span>
+    <span class="doccomment">/// This should be equal to Self::MANTISSA_DIGITS - 1, because of the implied leading bit.</span>
     <span class="kw">const</span> <span class="ident">MANTISSA_BITS</span>: <span class="ident"><span class="self">Self</span>::Bits</span>;
-    <span class="comment">// Bias correction of the exponent</span>
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// A constant equal to the bias correction of the exponent.</span>
     <span class="kw">const</span> <span class="ident">EXPONENT_BIAS</span>: <span class="ident"><span class="self">Self</span>::Bits</span>;
 
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, returns true if `self` is positive, otherwise false.</span>
     <span class="kw">fn</span> <span class="ident">sign</span>(<span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="op">!</span>(<span class="self">self</span>.<span class="ident">to_bits</span>() <span class="op">&amp;</span> (<span class="ident"><span class="self">Self</span>::Bits::one</span>() <span class="op">&lt;</span><span class="op">&lt;</span> (<span class="ident"><span class="self">Self</span>::EXPONENT_BITS</span> <span class="op">+</span> <span class="ident"><span class="self">Self</span>::MANTISSA_BITS</span>))).<span class="ident">is_zero</span>()
     }
+    
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, returns the bits representing the exponent, without bias correction.</span>
     <span class="kw">fn</span> <span class="ident">raw_exponent</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Bits</span> {
+        <span class="comment">// (shift the exponent to the rightmost bits) &amp; (mask away everything but the trailing EXPONENT_BITS)</span>
         (<span class="self">self</span>.<span class="ident">to_bits</span>() <span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident"><span class="self">Self</span>::MANTISSA_BITS</span>) <span class="op">&amp;</span> ((<span class="ident"><span class="self">Self</span>::Bits::one</span>() <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident"><span class="self">Self</span>::EXPONENT_BITS</span>) <span class="op">-</span> <span class="ident"><span class="self">Self</span>::Bits::one</span>())
     }
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, returns the bits representing the mantissa.</span>
     <span class="kw">fn</span> <span class="ident">mantissa</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Bits</span> {
+        <span class="comment">// (bits) &amp; (mask away everything but the trailing MANTISSA_BITS)</span>
         <span class="self">self</span>.<span class="ident">to_bits</span>() <span class="op">&amp;</span> ((<span class="ident"><span class="self">Self</span>::Bits::one</span>() <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident"><span class="self">Self</span>::MANTISSA_BITS</span>) <span class="op">-</span> <span class="ident"><span class="self">Self</span>::Bits::one</span>())
     }
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any set of arguments, returns the corresponding floating-point number according to IEEE-754.</span>
+    <span class="doccomment">/// </span>
+    <span class="doccomment">/// # Notes</span>
+    <span class="doccomment">/// Assumes that the bits to the left of the bit range of the raw_exponent and mantissa are not set.</span>
     <span class="kw">fn</span> <span class="ident">from_raw_components</span>(<span class="ident">sign</span>: <span class="ident">bool</span>, <span class="ident">raw_exponent</span>: <span class="ident"><span class="self">Self</span>::Bits</span>, <span class="ident">mantissa</span>: <span class="ident"><span class="self">Self</span>::Bits</span>) -&gt; <span class="self">Self</span> {
+        <span class="comment">// shift the sign to the leading bit</span>
         <span class="kw">let</span> <span class="ident">sign</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::Bits::from</span>(<span class="ident">sign</span>) <span class="op">&lt;</span><span class="op">&lt;</span> (<span class="ident"><span class="self">Self</span>::EXPONENT_BITS</span> <span class="op">+</span> <span class="ident"><span class="self">Self</span>::MANTISSA_BITS</span>);
+        <span class="comment">// shift the exponent to the next EXPONENT_BITS</span>
         <span class="kw">let</span> <span class="ident">raw_exponent</span> <span class="op">=</span> <span class="ident">raw_exponent</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident"><span class="self">Self</span>::MANTISSA_BITS</span>;
 
+        <span class="comment">// mantissa is already in place, bit-or them together</span>
         <span class="ident"><span class="self">Self</span>::from_bits</span>(<span class="ident">sign</span> <span class="op">|</span> <span class="ident">raw_exponent</span> <span class="op">|</span> <span class="ident">mantissa</span>)
     }
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, decomposes the type into the sign, raw exponent and mantissa.</span>
     <span class="kw">fn</span> <span class="ident">to_raw_components</span>(<span class="self">self</span>) -&gt; (<span class="ident">bool</span>, <span class="ident"><span class="self">Self</span>::Bits</span>, <span class="ident"><span class="self">Self</span>::Bits</span>) {
         (<span class="self">self</span>.<span class="ident">sign</span>(), <span class="self">self</span>.<span class="ident">raw_exponent</span>(), <span class="self">self</span>.<span class="ident">mantissa</span>())
     }
+
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, retrieves the corresponding bit representation.</span>
     <span class="kw">fn</span> <span class="ident">to_bits</span>(<span class="self">self</span>) -&gt; <span class="ident"><span class="self">Self</span>::Bits</span>;
+    
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `bits` of the associated `Bits` type, returns the floating-point number corresponding to `bits`.</span>
     <span class="kw">fn</span> <span class="ident">from_bits</span>(<span class="ident">bits</span>: <span class="ident"><span class="self">Self</span>::Bits</span>) -&gt; <span class="self">Self</span>;
 }
 
@@ -361,6 +541,14 @@
     }
 }
 
+<span class="comment">// TRAIT InherentNull</span>
+<span class="macro">macro_rules!</span> <span class="ident">impl_inherent_null_float</span> {
+    ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ty</span>),<span class="op">+</span>) =&gt; ($(<span class="kw">impl</span> <span class="ident">InherentNull</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
+        <span class="kw">const</span> <span class="ident">NULL</span>: <span class="self">Self</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::NAN</span>;
+    })<span class="op">+</span>)
+}
+<span class="macro">impl_inherent_null_float!</span>(<span class="ident">f64</span>, <span class="ident">f32</span>);
+
 <span class="comment">// TRAIT TotalOrd</span>
 <span class="macro">macro_rules!</span> <span class="ident">impl_total_ord_for_ord</span> {
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ty</span>),<span class="kw-2">*</span>) =&gt; {$(<span class="kw">impl</span> <span class="ident">TotalOrd</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
@@ -384,14 +572,14 @@
 }
 <span class="macro">impl_total_ord_for_float!</span>(<span class="ident">f64</span>, <span class="ident">f32</span>);
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">max_by</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">v1</span>: <span class="ident">T</span>, <span class="ident">v2</span>: <span class="ident">T</span>, <span class="ident">compare</span>: <span class="ident">F</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">max_by</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">v1</span>: <span class="ident">T</span>, <span class="ident">v2</span>: <span class="ident">T</span>, <span class="ident">compare</span>: <span class="ident">F</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">compare</span>(<span class="kw-2">&amp;</span><span class="ident">v1</span>, <span class="kw-2">&amp;</span><span class="ident">v2</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">cmp</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">cmp</span> {
         <span class="ident">Ordering::Less</span> <span class="op">|</span> <span class="ident">Ordering::Equal</span> =&gt; <span class="ident">v2</span>,
         <span class="ident">Ordering::Greater</span> =&gt; <span class="ident">v1</span>,
     })
 }
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min_by</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">v1</span>: <span class="ident">T</span>, <span class="ident">v2</span>: <span class="ident">T</span>, <span class="ident">compare</span>: <span class="ident">F</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">min_by</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="ident">T</span>, <span class="kw-2">&amp;</span><span class="ident">T</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span><span class="op">&gt;</span>(<span class="ident">v1</span>: <span class="ident">T</span>, <span class="ident">v2</span>: <span class="ident">T</span>, <span class="ident">compare</span>: <span class="ident">F</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
     <span class="ident">compare</span>(<span class="kw-2">&amp;</span><span class="ident">v1</span>, <span class="kw-2">&amp;</span><span class="ident">v2</span>).<span class="ident">map</span>(<span class="op">|</span><span class="ident">cmp</span><span class="op">|</span> <span class="kw">match</span> <span class="ident">cmp</span> {
         <span class="ident">Ordering::Less</span> <span class="op">|</span> <span class="ident">Ordering::Equal</span> =&gt; <span class="ident">v1</span>,
         <span class="ident">Ordering::Greater</span> =&gt; <span class="ident">v2</span>,

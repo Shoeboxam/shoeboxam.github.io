@@ -1,37 +1,29 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/traits/arithmetic/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/traits/arithmetic/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><!-- adds support for rendering latex-formatted math notation -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 <script>
-  "use strict";
-  document.addEventListener("DOMContentLoaded", function () {
-      var maths = document.getElementsByClassName("language-math");
-      for (var i=0; i<maths.length; i++) {
-          var el = maths[i];
-          katex.render(el.innerText, el, {displayMode: true});
-      }
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
 
-      var codes = document.getElementsByTagName("code");
-      for (i=0; i<codes.length; i++) {
-          el = codes[i];
-          if (el.classList.contains("language-math")) continue;
-          if (el.classList.contains("language-inline-math")) {
-              katex.render(el.innerText, el);
-              continue;
-          }
-
-          var parent = el.parentNode;
-          if (parent.nodeName.toLowerCase() === "pre") continue;
-          // TODO: Can this be done with DOM manipulation rather than string manipulation?
-          // https://stackoverflow.com/q/48438067/3019990
-          var inlineMath = "$" + el.outerHTML + "$";
-          if (parent.innerHTML.indexOf(inlineMath) !== -1) {
-              el.classList.add("language-inline-math");
-              parent.innerHTML = parent.innerHTML.replace("$" + el.outerHTML + "$", el.outerHTML);
-              i--;
-          }
-      }
-  });
+        let maths = document.getElementsByClassName("language-math");
+        for (var i = 0; i < maths.length; i++) {
+            var el = maths[i];
+            katex.render(el.innerText, el, {displayMode: true, throwOnError: false});
+        }
+    });
 </script>
-
 </head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../opendp/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
@@ -472,148 +464,454 @@
 <span id="438">438</span>
 <span id="439">439</span>
 <span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
+<span id="505">505</span>
+<span id="506">506</span>
+<span id="507">507</span>
+<span id="508">508</span>
+<span id="509">509</span>
+<span id="510">510</span>
+<span id="511">511</span>
+<span id="512">512</span>
+<span id="513">513</span>
+<span id="514">514</span>
+<span id="515">515</span>
+<span id="516">516</span>
+<span id="517">517</span>
+<span id="518">518</span>
+<span id="519">519</span>
+<span id="520">520</span>
+<span id="521">521</span>
+<span id="522">522</span>
+<span id="523">523</span>
+<span id="524">524</span>
+<span id="525">525</span>
+<span id="526">526</span>
+<span id="527">527</span>
+<span id="528">528</span>
+<span id="529">529</span>
+<span id="530">530</span>
+<span id="531">531</span>
+<span id="532">532</span>
+<span id="533">533</span>
+<span id="534">534</span>
+<span id="535">535</span>
+<span id="536">536</span>
+<span id="537">537</span>
+<span id="538">538</span>
+<span id="539">539</span>
+<span id="540">540</span>
+<span id="541">541</span>
+<span id="542">542</span>
+<span id="543">543</span>
+<span id="544">544</span>
+<span id="545">545</span>
+<span id="546">546</span>
+<span id="547">547</span>
+<span id="548">548</span>
+<span id="549">549</span>
+<span id="550">550</span>
+<span id="551">551</span>
+<span id="552">552</span>
+<span id="553">553</span>
+<span id="554">554</span>
+<span id="555">555</span>
+<span id="556">556</span>
+<span id="557">557</span>
+<span id="558">558</span>
+<span id="559">559</span>
+<span id="560">560</span>
+<span id="561">561</span>
+<span id="562">562</span>
+<span id="563">563</span>
+<span id="564">564</span>
+<span id="565">565</span>
+<span id="566">566</span>
+<span id="567">567</span>
+<span id="568">568</span>
+<span id="569">569</span>
+<span id="570">570</span>
+<span id="571">571</span>
+<span id="572">572</span>
+<span id="573">573</span>
+<span id="574">574</span>
+<span id="575">575</span>
+<span id="576">576</span>
+<span id="577">577</span>
+<span id="578">578</span>
+<span id="579">579</span>
+<span id="580">580</span>
+<span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
 </pre><pre class="rust"><code><span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">rug::ops</span>::{<span class="ident">AddAssignRound</span>, <span class="ident">DivAssignRound</span>, <span class="ident">MulAssignRound</span>, <span class="ident">SubAssignRound</span>, <span class="ident">PowAssignRound</span>};
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits::ExactIntCast</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits</span>::{<span class="ident">ExactIntCast</span>, <span class="ident">InfCast</span>};
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error::Fallible</span>;
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;use-mpfr&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits::CastInternalReal</span>;
+<span class="kw">use</span> <span class="ident">rug::Float</span>;
 
-<span class="doccomment">/// Computes the absolute value and returns an error if overflowing.</span>
+
+
+<span class="doccomment">/// Fallible absolute value that returns an error if overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// This can return an error when a signed integer is the smallest negative value.</span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::AlertingAbs;</span>
+<span class="doccomment">/// assert!(i8::MIN.alerting_abs().is_err());</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AlertingAbs</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, returns `Ok(out)` where $out = |self|$ or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">alerting_abs</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Addition that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible addition that returns an error if overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::AlertingAdd;</span>
+<span class="doccomment">/// assert!(i8::MAX.alerting_add(&amp;1).is_err());</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AlertingAdd</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `Ok(self + v)` if the result does not overflow, else `Err(Error)`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `Ok(self + v)` if the result does not overflow, else `Err(e)`</span>
     <span class="kw">fn</span> <span class="ident">alerting_add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Subtraction that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible subtraction that returns an error if overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::AlertingSub;</span>
+<span class="doccomment">/// assert!(i8::MIN.alerting_sub(&amp;1).is_err());</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AlertingSub</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `Ok(self - v)` if the result does not overflow, else `Err(Error)`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `Ok(self - v)` if the result does not overflow, else `Err(e)`</span>
     <span class="kw">fn</span> <span class="ident">alerting_sub</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Multiplication that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible multiplication that returns an error if overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::AlertingMul;</span>
+<span class="doccomment">/// assert!(i8::MAX.alerting_mul(&amp;2).is_err());</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AlertingMul</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `Ok(self * v)` if the result does not overflow, else `Err(Error)`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `Ok(self * v)` if the result does not overflow, else `Err(e)`</span>
     <span class="kw">fn</span> <span class="ident">alerting_mul</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Division that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible division that returns an error if overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::AlertingDiv;</span>
+<span class="doccomment">/// assert!(1u8.alerting_div(&amp;0).is_err());</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AlertingDiv</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `Ok(self / v)` if the result does not overflow, else `Err(Error)`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `Ok(self / v)` if the result does not overflow, else `Err(e)`</span>
     <span class="kw">fn</span> <span class="ident">alerting_div</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Raising to the power that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallibly raise to the power.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Returns an error if overflowing. </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::AlertingPow;</span>
+<span class="doccomment">/// assert!(2u8.alerting_pow(&amp;8).is_err());</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AlertingPow</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `Ok(self^v)` if the result does not overflow, else `Err(Error)`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `Ok(self^v)` if the result does not overflow, else `Err(e)`</span>
     <span class="kw">fn</span> <span class="ident">alerting_pow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
 <span class="doccomment">/// Addition that saturates at the numeric bounds instead of overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::SaturatingAdd;</span>
+<span class="doccomment">/// assert_eq!(i8::MAX.saturating_add(i8::MAX), i8::MAX);</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SaturatingAdd</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `self + v`, saturating at the relevant high or low boundary of the type.</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `self + v`, saturating at the relevant high or low boundary of the type.</span>
     <span class="kw">fn</span> <span class="ident">saturating_add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self</span>;
 }
 
 <span class="doccomment">/// Multiplication that saturates at the numeric bounds instead of overflowing.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Avoids unrecoverable panics that could leak private information.</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// use opendp::traits::SaturatingMul;</span>
+<span class="doccomment">/// assert_eq!(i8::MAX.saturating_mul(2), i8::MAX);</span>
+<span class="doccomment">/// ```</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">SaturatingMul</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Returns `self * v`, saturating at the relevant high or low boundary of the type.</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` and `v` of type `Self`,</span>
+    <span class="doccomment">/// returns `self * v`, saturating at the relevant high or low boundary of the type.</span>
     <span class="kw">fn</span> <span class="ident">saturating_mul</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="self">Self</span>;
 }
 
-<span class="doccomment">/// Exponentiates with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible exponentiation with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfExp</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_exp()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge \exp(self)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_exp</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_exp()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le \exp(self)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_exp</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Computes the natural logarithm with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible natural logarithm with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfLn</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_ln()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge \ln(self)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_ln</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_ln()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le \ln(self)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_ln</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Computes the base 2 logarithm with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible base-2 logarithm with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfLog2</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_log2()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge \log_2(self)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_log2</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_log2()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le \log_2(self)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_log2</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Computes the square root with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible square root with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfSqrt</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_log2()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge \sqrt{self}$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_sqrt</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_log2()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le \sqrt{self}$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_sqrt</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Computes self to the power with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallibly raise self to the power with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfPow</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AlertingPow</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `p` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_pow(p)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge self^{p}$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_pow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `p` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_pow(p)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le self^{p}$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_pow</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Performs addition with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible addition with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfAdd</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AlertingAdd</span> {
-    <span class="doccomment">/// Alerting addition with rounding towards infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_add(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge self + v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// Alerting addition with rounding towards -infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_add(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le self + v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_add</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Performs subtraction with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible subtraction with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfSub</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AlertingSub</span> {
-    <span class="doccomment">/// Alerting subtraction with rounding towards infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_sub(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge self - v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_sub</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// Alerting subtraction with rounding towards -infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_sub(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le self - v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_sub</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Performs multiplication with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible multiplication with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfMul</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AlertingMul</span> {
-    <span class="doccomment">/// Alerting multiplication with rounding towards infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_mul(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge self \cdot v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_mul</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// Alerting multiplication with rounding towards -infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_mul(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le self \cdot v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_mul</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
-<span class="doccomment">/// Performs division with specified rounding that returns an error if overflowing.</span>
+<span class="doccomment">/// Fallible division with specified rounding.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfDiv</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">AlertingDiv</span> {
-    <span class="doccomment">/// Alerting division with rounding towards infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_div(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge self / v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_div</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// Alerting division with rounding towards -infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any two values `self` and `v` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_div(v)` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le self / v$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_div</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">v</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
- <span class="doccomment">/// Exponentiates and subtracts one with specified rounding.</span>
+ <span class="doccomment">/// Fallibly exponentiate and subtract one with specified rounding.</span>
+ <span class="doccomment">/// </span>
+ <span class="doccomment">/// Throws an error if the ideal output is not finite or representable.</span>
+ <span class="doccomment">/// This provides more numerical stability than computing the quantity outright.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfExpM1</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Alerting exp_m1 with rounding towards infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_exp_m1()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge \exp(self) - 1$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_exp_m1</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// Alerting exp_m1 with rounding towards -infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_exp_m1()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le \exp(self) - 1$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_exp_m1</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
- <span class="doccomment">/// Takes the logarithm and adds one with specified rounding.</span>
+ <span class="doccomment">/// Fallible logarithm of the (argument plus one) with specified rounding.</span>
  <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfLn1P</span>: <span class="ident">Sized</span> {
-    <span class="doccomment">/// Alerting ln_1p with rounding towards infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.inf_ln_1p()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \ge \ln(self + 1)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">inf_ln_1p</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
-    <span class="doccomment">/// Alerting ln_1p with rounding towards -infinity.</span>
-    <span class="doccomment">/// Returns `Ok` if the result does not overflow, else `Err`</span>
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `self` of type `Self`, </span>
+    <span class="doccomment">/// `self.neg_inf_ln_1p()` either returns `Ok(out)`, </span>
+    <span class="doccomment">/// where $out \le \ln(self + 1)$, or `Err(e)`.</span>
     <span class="kw">fn</span> <span class="ident">neg_inf_ln_1p</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
@@ -783,9 +1081,9 @@
         <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_inf</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="kw">use</span> <span class="ident">rug::float::Round::Up</span>;
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inf_into_internal</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident">Float::inf_cast</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">op</span>(<span class="ident">Up</span>);
-                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::inf_from_internal</span>(<span class="ident">this</span>);
+                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::inf_cast</span>(<span class="ident">this</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="ident">is_finite</span>().<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">this</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">err!</span>(
                     <span class="ident">FailedFunction</span>,
                     <span class="macro">concat!</span>(<span class="string">&quot;({}).&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_inf</span>), <span class="string">&quot;() is not finite. Consider tightening your parameters.&quot;</span>),
@@ -793,9 +1091,9 @@
             }
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_neg_inf</span>(<span class="self">self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="kw">use</span> <span class="ident">rug::float::Round::Down</span>;
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">neg_inf_into_internal</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident">Float::neg_inf_cast</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">op</span>(<span class="ident">Down</span>);
-                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::neg_inf_from_internal</span>(<span class="ident">this</span>);
+                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::neg_inf_cast</span>(<span class="ident">this</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="ident">is_finite</span>().<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">this</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">err!</span>(
                     <span class="ident">FailedFunction</span>,
                     <span class="macro">concat!</span>(<span class="string">&quot;({}).&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_neg_inf</span>), <span class="string">&quot;() is not finite. Consider tightening your parameters.&quot;</span>),
@@ -869,9 +1167,9 @@
         <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_inf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="kw">use</span> <span class="ident">rug::float::Round::Up</span>;
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inf_into_internal</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident">Float::inf_cast</span>(<span class="kw-2">*</span><span class="self">self</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">op</span>(<span class="ident">other</span>, <span class="ident">Up</span>);
-                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::inf_from_internal</span>(<span class="ident">this</span>);
+                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::inf_cast</span>(<span class="ident">this</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="ident">is_finite</span>().<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">this</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">err!</span>(
                     <span class="ident">FailedFunction</span>,
                     <span class="macro">concat!</span>(<span class="string">&quot;({}).&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_inf</span>), <span class="string">&quot;({}) is not finite. Consider tightening your parameters.&quot;</span>),
@@ -879,9 +1177,9 @@
             }
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_neg_inf</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="kw">use</span> <span class="ident">rug::float::Round::Down</span>;
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">neg_inf_into_internal</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident">Float::neg_inf_cast</span>(<span class="kw-2">*</span><span class="self">self</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">op</span>(<span class="ident">other</span>, <span class="ident">Down</span>);
-                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::neg_inf_from_internal</span>(<span class="ident">this</span>);
+                <span class="kw">let</span> <span class="ident">this</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::neg_inf_cast</span>(<span class="ident">this</span>)<span class="question-mark">?</span>;
                 <span class="ident">this</span>.<span class="ident">is_finite</span>().<span class="ident">then</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">this</span>).<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">err!</span>(
                     <span class="ident">FailedFunction</span>,
                     <span class="macro">concat!</span>(<span class="string">&quot;({}).&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">method_neg_inf</span>), <span class="string">&quot;({}) is not finite. Consider tightening your parameters.&quot;</span>),

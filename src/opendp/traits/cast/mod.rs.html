@@ -1,37 +1,29 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/traits/cast/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.css" integrity="sha384-TEMocfGvRuD1rIAacqrknm5BQZ7W7uWitoih+jMNFXQIbNl16bO8OZmylH/Vi/Ei" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/katex@0.9.0/dist/katex.min.js" integrity="sha384-jmxIlussZWB7qCuB+PgKG1uLjjxbVVIayPJwi6cG6Zb4YKq0JIw+OMnkkEC7kYCq" crossorigin="anonymous"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/traits/cast/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../../storage.js"></script><script defer src="../../../../source-script.js"></script><script defer src="../../../../source-files.js"></script><script defer src="../../../../main.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../../favicon.svg"><!-- adds support for rendering latex-formatted math notation -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 <script>
-  "use strict";
-  document.addEventListener("DOMContentLoaded", function () {
-      var maths = document.getElementsByClassName("language-math");
-      for (var i=0; i<maths.length; i++) {
-          var el = maths[i];
-          katex.render(el.innerText, el, {displayMode: true});
-      }
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          // customised options
+          // • auto-render specific keys, e.g.:
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          // • rendering keys, e.g.:
+          throwOnError : false
+        });
 
-      var codes = document.getElementsByTagName("code");
-      for (i=0; i<codes.length; i++) {
-          el = codes[i];
-          if (el.classList.contains("language-math")) continue;
-          if (el.classList.contains("language-inline-math")) {
-              katex.render(el.innerText, el);
-              continue;
-          }
-
-          var parent = el.parentNode;
-          if (parent.nodeName.toLowerCase() === "pre") continue;
-          // TODO: Can this be done with DOM manipulation rather than string manipulation?
-          // https://stackoverflow.com/q/48438067/3019990
-          var inlineMath = "$" + el.outerHTML + "$";
-          if (parent.innerHTML.indexOf(inlineMath) !== -1) {
-              el.classList.add("language-inline-math");
-              parent.innerHTML = parent.innerHTML.replace("$" + el.outerHTML + "$", el.outerHTML);
-              i--;
-          }
-      }
-  });
+        let maths = document.getElementsByClassName("language-math");
+        for (var i = 0; i < maths.length; i++) {
+            var el = maths[i];
+            katex.render(el.innerText, el, {displayMode: true, throwOnError: false});
+        }
+    });
 </script>
-
 </head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../../../../opendp/index.html"><div class="logo-container"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></div></a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../../opendp/index.html"><img class="rust-logo" src="../../../../rust-logo.svg" alt="logo"></a><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><button type="button">?</button></div><div id="settings-menu" tabindex="-1"><a href="../../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">1</span>
 <span id="2">2</span>
 <span id="3">3</span>
@@ -433,6 +425,38 @@
 <span id="399">399</span>
 <span id="400">400</span>
 <span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 
 <span class="kw">use</span> <span class="ident">num</span>::{<span class="ident">NumCast</span>, <span class="ident">One</span>, <span class="ident">Zero</span>};
@@ -440,54 +464,54 @@
 <span class="kw">use</span> <span class="ident">rug::Float</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error::Fallible</span>;
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;use-mpfr&quot;</span>)]</span>
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits::FloatBits</span>;
 
 <span class="comment">// general overview of casters:</span>
 <span class="comment">// https://docs.google.com/spreadsheets/d/1DJohiOI3EVHjwj8g4IEdFZVf7MMyFk_4oaSyjTfkO_0/edit?usp=sharing</span>
 
-<span class="doccomment">/// Fallible casting where the casted value is equal to the original value.</span>
-<span class="doccomment">/// Casting fails for any value not between Self::MIN_CONSECUTIVE and Self::MAX_CONSECUTIVE.</span>
+<span class="doccomment">/// Fallible casting where the casted value is exactly equal to the original value.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExactIntCast</span><span class="op">&lt;</span><span class="ident">TI</span><span class="op">&gt;</span>: <span class="ident">Sized</span> <span class="op">+</span> <span class="ident">ExactIntBounds</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `v` of type `TI`, `Self::exact_int_cast(value)` either</span>
+    <span class="doccomment">/// returns `Err(e)` if `v` is smaller than `Self::MIN_CONSECUTIVE` or greater than `Self::MAX_CONSECUTIVE`,</span>
+    <span class="doccomment">/// or `Ok(out)` where $out = v$.</span>
     <span class="kw">fn</span> <span class="ident">exact_int_cast</span>(<span class="ident">v</span>: <span class="ident">TI</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 } 
 
+<span class="doccomment">/// Consts representing the maximum and minimum finite consecutive values.</span>
+<span class="doccomment">/// </span>
+<span class="doccomment">/// This is also implemented for floats, </span>
+<span class="doccomment">/// as neighboring floating point values may differ by more than 1 when the mantissa is exhausted.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ExactIntBounds</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// `Self::MAX_CONSECUTIVE` is the largest integer-consecutive finite value that can be represented by `Self`.</span>
     <span class="kw">const</span> <span class="ident">MAX_CONSECUTIVE</span>: <span class="self">Self</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// `Self::MAX_CONSECUTIVE` is the smallest integer-consecutive finite value that can be represented by `Self`.</span>
     <span class="kw">const</span> <span class="ident">MIN_CONSECUTIVE</span>: <span class="self">Self</span>;
 }
 
 <span class="doccomment">/// Fallible casting where the casted value rounds towards infinity.</span>
+<span class="doccomment">/// </span>
 <span class="doccomment">/// This preserves the invariant that the casted value is gte the original value.</span>
 <span class="doccomment">/// For example, casting a 128_u8 to i8 doesn&#39;t saturate to i8::MAX (127), it errors.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="ident">TI</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `v` of type `TI`, `Self::inf_cast(value)` either returns `Ok(out)` or `Err(e)`,</span>
+    <span class="doccomment">/// where $out \ge v$.</span>
     <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="ident">TI</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `v` of type `TI`, `Self::inf_cast(value)` either returns `Ok(out)` or `Err(e)`,</span>
+    <span class="doccomment">/// where $out \le v$.</span>
+    <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="ident">TI</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
 
+<span class="doccomment">/// Fallible casting where the casted value is rounded to nearest.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">RoundCast</span><span class="op">&lt;</span><span class="ident">TI</span><span class="op">&gt;</span>: <span class="ident">Sized</span> {
+    <span class="doccomment">/// # Proof Definition</span>
+    <span class="doccomment">/// For any `v` of type `TI`, `Self::inf_cast(v)` either returns `Ok(out)` or `Err(e)`,</span>
+    <span class="doccomment">/// where $out = argmin_{x \in TI} |x - v|$.</span>
     <span class="kw">fn</span> <span class="ident">round_cast</span>(<span class="ident">v</span>: <span class="ident">TI</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>;
 }
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>)]</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CastInternalReal</span>: <span class="ident">FloatBits</span> <span class="op">+</span> <span class="ident">Sized</span> {
-    <span class="comment">// Number of digits in the mantissa.</span>
-    <span class="comment">// MANTISSA_DIGITS == MANTISSA_BITS + 1 because of implicit bit</span>
-    <span class="kw">const</span> <span class="ident">MANTISSA_DIGITS</span>: <span class="ident">u32</span>;
-    <span class="kw">fn</span> <span class="ident">inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="self">Self</span>;
-    <span class="kw">fn</span> <span class="ident">neg_inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="self">Self</span>;
-    <span class="kw">fn</span> <span class="ident">inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="ident">Float</span>;
-    <span class="kw">fn</span> <span class="ident">neg_inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="ident">Float</span>;
-}
-
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>))]</span>
-<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">CastInternalReal</span> {
-    <span class="kw">const</span> <span class="ident">MANTISSA_DIGITS</span>: <span class="ident">u32</span>;
-    <span class="kw">fn</span> <span class="ident">inf_from_internal</span>(<span class="ident">v</span>: <span class="self">Self</span>) -&gt; <span class="self">Self</span>;
-    <span class="kw">fn</span> <span class="ident">neg_inf_from_internal</span>(<span class="ident">v</span>: <span class="self">Self</span>) -&gt; <span class="self">Self</span>;
-    <span class="kw">fn</span> <span class="ident">inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span>;
-    <span class="kw">fn</span> <span class="ident">neg_inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span>;
-}
-
 
 <span class="macro">macro_rules!</span> <span class="ident">cartesian</span> {
     <span class="comment">// base case</span>
@@ -584,6 +608,7 @@
 <span class="macro">macro_rules!</span> <span class="ident">impl_inf_cast_exact</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">to</span>:<span class="ident">ty</span>) =&gt; (<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">to</span> {
         <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="ident">ExactIntCast::exact_int_cast</span>(<span class="ident">v</span>) }
+        <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="ident">ExactIntCast::exact_int_cast</span>(<span class="ident">v</span>) }
     })
 }
 <span class="macro">cartesian!</span>([<span class="ident">u8</span>, <span class="ident">u16</span>, <span class="ident">u32</span>, <span class="ident">u64</span>, <span class="ident">u128</span>, <span class="ident">usize</span>, <span class="ident">i8</span>, <span class="ident">i16</span>, <span class="ident">i32</span>, <span class="ident">i64</span>, <span class="ident">i128</span>, <span class="ident">isize</span>], <span class="ident">impl_inf_cast_exact</span>);
@@ -593,6 +618,7 @@
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">to</span>:<span class="ident">ty</span>) =&gt; (<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">to</span> {
         <span class="attribute">#[<span class="ident">inline</span>]</span>
         <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="prelude-val">Ok</span>(<span class="ident">From::from</span>(<span class="ident">v</span>)) }
+        <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="prelude-val">Ok</span>(<span class="ident">From::from</span>(<span class="ident">v</span>)) }
     })
 }
 
@@ -619,14 +645,24 @@
         <span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">float</span> {
             <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v_int</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="kw">use</span> <span class="ident">rug</span>::{<span class="ident">Float</span>, <span class="ident">float::Round</span>};
-                <span class="kw">let</span> <span class="ident">float</span> <span class="op">=</span> <span class="ident">Float::with_val_round</span>(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">float</span><span class="op">&gt;</span><span class="ident">::MANTISSA_DIGITS</span>, <span class="ident">v_int</span>, <span class="ident">Round::Up</span>).<span class="number">0</span>;
-                <span class="prelude-val">Ok</span>(<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">float</span><span class="op">&gt;</span><span class="ident">::inf_from_internal</span>(<span class="ident">float</span>))
+                <span class="kw">let</span> <span class="ident">float</span> <span class="op">=</span> <span class="ident">Float::with_val_round</span>(<span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>, <span class="ident">v_int</span>, <span class="ident">Round::Up</span>).<span class="number">0</span>;
+                <span class="ident"><span class="self">Self</span>::inf_cast</span>(<span class="ident">float</span>)
+            }
+            <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v_int</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                <span class="kw">use</span> <span class="ident">rug</span>::{<span class="ident">Float</span>, <span class="ident">float::Round</span>};
+                <span class="kw">let</span> <span class="ident">float</span> <span class="op">=</span> <span class="ident">Float::with_val_round</span>(<span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>, <span class="ident">v_int</span>, <span class="ident">Round::Down</span>).<span class="number">0</span>;
+                <span class="ident"><span class="self">Self</span>::neg_inf_cast</span>(<span class="ident">float</span>)
             }
         }
+        <span class="comment">// cast from int to float with controlled rounding, or fail</span>
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span><span class="op">=</span><span class="string">&quot;use-mpfr&quot;</span>))]</span>
         <span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">float</span> {
             <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v_int</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">float</span><span class="op">&gt;</span><span class="ident">::round_cast</span>(<span class="ident">v_int</span>)
+                <span class="comment">// defer to exact int cast implementation</span>
+                <span class="ident"><span class="self">Self</span>::exact_int_cast</span>(<span class="ident">v_int</span>)
+            }
+            <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v_int</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                <span class="ident"><span class="self">Self</span>::exact_int_cast</span>(<span class="ident">v_int</span>)
             }
         }
     )
@@ -641,6 +677,7 @@
 
 <span class="macro">impl_inf_cast_from!</span>(<span class="ident">f32</span>, <span class="ident">f32</span>);
 <span class="macro">impl_inf_cast_from!</span>(<span class="ident">f32</span>, <span class="ident">f64</span>);
+
 <span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">f32</span> {
     <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">vf64</span>: <span class="ident">f64</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">vf64</span>.<span class="ident">is_nan</span>() { <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">f32::NAN</span>) }
@@ -659,6 +696,24 @@
         }
         <span class="prelude-val">Ok</span>(<span class="ident">vf32</span>)
     }
+
+    <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">vf64</span>: <span class="ident">f64</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> <span class="ident">vf64</span>.<span class="ident">is_nan</span>() { <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">f32::NAN</span>) }
+        <span class="comment">// cast with rounding towards nearest, ties toward even</span>
+        <span class="comment">// https://doc.rust-lang.org/reference/expressions/operator-expr.html#semantics</span>
+        <span class="kw">let</span> <span class="ident">vf32</span> <span class="op">=</span> <span class="ident">vf64</span> <span class="kw">as</span> <span class="ident">f32</span>;
+
+        <span class="comment">// if nearest was toward inf, then perturb one step towards -inf</span>
+        <span class="comment">// +/- zero always evaluates to false</span>
+        <span class="kw">if</span> <span class="ident">vf64</span> <span class="op">&lt;</span> <span class="ident">vf32</span> <span class="kw">as</span> <span class="ident">f64</span> {
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">f32::from_bits</span>(<span class="kw">if</span> <span class="ident">vf32</span>.<span class="ident">is_sign_negative</span>() {
+                <span class="ident">vf32</span>.<span class="ident">to_bits</span>() <span class="op">+</span> <span class="number">1</span>
+            } <span class="kw">else</span> {
+                <span class="ident">vf32</span>.<span class="ident">to_bits</span>() <span class="op">-</span> <span class="number">1</span>
+            }))
+        }
+        <span class="prelude-val">Ok</span>(<span class="ident">vf32</span>)
+    }
 }
 <span class="macro">impl_inf_cast_from!</span>(<span class="ident">f64</span>, <span class="ident">f64</span>);
 
@@ -666,6 +721,15 @@
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">to</span>:<span class="ident">ty</span>) =&gt; (<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">to</span> {
         <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="kw-2">mut</span> <span class="ident">v</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
             <span class="ident">v</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">ceil</span>();
+            <span class="kw">if</span> <span class="ident"><span class="self">Self</span>::MIN</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span> <span class="op">&gt;</span> <span class="ident">v</span> <span class="op">|</span><span class="op">|</span> <span class="ident"><span class="self">Self</span>::MAX</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span> <span class="op">&lt;</span> <span class="ident">v</span> {
+                <span class="macro">fallible!</span>(<span class="ident">FailedCast</span>, <span class="string">&quot;Failed to cast float to int. Float value is outside of range.&quot;</span>)
+            } <span class="kw">else</span> {
+                <span class="prelude-val">Ok</span>(<span class="ident">v</span> <span class="kw">as</span> <span class="self">Self</span>)
+            }
+        }
+
+        <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="kw-2">mut</span> <span class="ident">v</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+            <span class="ident">v</span> <span class="op">=</span> <span class="ident">v</span>.<span class="ident">floor</span>();
             <span class="kw">if</span> <span class="ident"><span class="self">Self</span>::MIN</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span> <span class="op">&gt;</span> <span class="ident">v</span> <span class="op">|</span><span class="op">|</span> <span class="ident"><span class="self">Self</span>::MAX</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ti</span> <span class="op">&lt;</span> <span class="ident">v</span> {
                 <span class="macro">fallible!</span>(<span class="ident">FailedCast</span>, <span class="string">&quot;Failed to cast float to int. Float value is outside of range.&quot;</span>)
             } <span class="kw">else</span> {
@@ -784,55 +848,47 @@
 <span class="kw">impl</span> <span class="ident">RoundCast</span><span class="op">&lt;</span><span class="ident">bool</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">String</span> { <span class="kw">fn</span> <span class="ident">round_cast</span>(<span class="ident">v</span>: <span class="ident">bool</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { <span class="prelude-val">Ok</span>(<span class="ident">v</span>.<span class="ident">to_string</span>()) } }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">CastInternalReal</span> <span class="kw">for</span> <span class="ident">f64</span> {
-    <span class="kw">const</span> <span class="ident">MANTISSA_DIGITS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>;
-    <span class="kw">fn</span> <span class="ident">inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">v</span>.<span class="ident">to_f64_round</span>(<span class="ident">rug::float::Round::Up</span>)
+<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="ident">f32</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Float</span> {
+    <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="ident">f32</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">Float::with_val_round</span>(<span class="ident">f32::MANTISSA_DIGITS</span>, <span class="ident">v</span>, <span class="ident">rug::float::Round::Up</span>).<span class="number">0</span>)
     }
-    <span class="kw">fn</span> <span class="ident">neg_inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">v</span>.<span class="ident">to_f64_round</span>(<span class="ident">rug::float::Round::Down</span>)
-    }
-    <span class="kw">fn</span> <span class="ident">inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="ident">Float</span> {
-        <span class="ident">rug::Float::with_val_round</span>(<span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>, <span class="self">self</span>, <span class="ident">rug::float::Round::Up</span>).<span class="number">0</span>
-    }
-    <span class="kw">fn</span> <span class="ident">neg_inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="ident">Float</span> {
-        <span class="ident">rug::Float::with_val_round</span>(<span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>, <span class="self">self</span>, <span class="ident">rug::float::Round::Down</span>).<span class="number">0</span> 
+
+    <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="ident">f32</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">Float::with_val_round</span>(<span class="ident">f32::MANTISSA_DIGITS</span>, <span class="ident">v</span>, <span class="ident">rug::float::Round::Down</span>).<span class="number">0</span>)
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>)]</span>
-<span class="kw">impl</span> <span class="ident">CastInternalReal</span> <span class="kw">for</span> <span class="ident">f32</span> {
-    <span class="kw">const</span> <span class="ident">MANTISSA_DIGITS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>;
-    <span class="kw">fn</span> <span class="ident">inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">v</span>.<span class="ident">to_f32_round</span>(<span class="ident">rug::float::Round::Up</span>)
+<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="ident">f64</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Float</span> {
+    <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="ident">f64</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">Float::with_val_round</span>(<span class="ident">f64::MANTISSA_DIGITS</span>, <span class="ident">v</span>, <span class="ident">rug::float::Round::Up</span>).<span class="number">0</span>)
     }
-    <span class="kw">fn</span> <span class="ident">neg_inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">v</span>.<span class="ident">to_f32_round</span>(<span class="ident">rug::float::Round::Down</span>)
-    }
-    <span class="kw">fn</span> <span class="ident">inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="ident">Float</span> { 
-        <span class="ident">rug::Float::with_val_round</span>(<span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>, <span class="self">self</span>, <span class="ident">rug::float::Round::Up</span>).<span class="number">0</span>
-    }
-    <span class="kw">fn</span> <span class="ident">neg_inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="ident">Float</span> { 
-        <span class="ident">rug::Float::with_val_round</span>(<span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>, <span class="self">self</span>, <span class="ident">rug::float::Round::Down</span>).<span class="number">0</span>
+
+    <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="ident">f64</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">Float::with_val_round</span>(<span class="ident">f64::MANTISSA_DIGITS</span>, <span class="ident">v</span>, <span class="ident">rug::float::Round::Down</span>).<span class="number">0</span>)
     }
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>))]</span>
-<span class="kw">impl</span> <span class="ident">CastInternalReal</span> <span class="kw">for</span> <span class="ident">f64</span> {
-    <span class="kw">const</span> <span class="ident">MANTISSA_DIGITS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>;
-    <span class="kw">fn</span> <span class="ident">inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">f64</span>) -&gt; <span class="self">Self</span> { <span class="ident">v</span> }
-    <span class="kw">fn</span> <span class="ident">neg_inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">f64</span>) -&gt; <span class="self">Self</span> { <span class="ident">v</span> }
-    <span class="kw">fn</span> <span class="ident">inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> { <span class="self">self</span> }
-    <span class="kw">fn</span> <span class="ident">neg_inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> { <span class="self">self</span> }
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>)]</span>
+<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="ident">Float</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">f32</span> {
+    <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">v</span>.<span class="ident">to_f32_round</span>(<span class="ident">rug::float::Round::Up</span>))
+    }
+
+    <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">v</span>.<span class="ident">to_f32_round</span>(<span class="ident">rug::float::Round::Down</span>))
+    }
 }
 
-<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>))]</span>
-<span class="kw">impl</span> <span class="ident">CastInternalReal</span> <span class="kw">for</span> <span class="ident">f32</span> {
-    <span class="kw">const</span> <span class="ident">MANTISSA_DIGITS</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::MANTISSA_DIGITS</span>;
-    <span class="kw">fn</span> <span class="ident">inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">f32</span>) -&gt; <span class="self">Self</span> { <span class="ident">v</span> }
-    <span class="kw">fn</span> <span class="ident">neg_inf_from_internal</span>(<span class="ident">v</span>: <span class="ident">f32</span>) -&gt; <span class="self">Self</span> { <span class="ident">v</span> }
-    <span class="kw">fn</span> <span class="ident">inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> { <span class="self">self</span> }
-    <span class="kw">fn</span> <span class="ident">neg_inf_into_internal</span>(<span class="self">self</span>) -&gt; <span class="self">Self</span> { <span class="self">self</span> }
+<span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;use-mpfr&quot;</span>)]</span>
+<span class="kw">impl</span> <span class="ident">InfCast</span><span class="op">&lt;</span><span class="ident">Float</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">f64</span> {
+    <span class="kw">fn</span> <span class="ident">inf_cast</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">v</span>.<span class="ident">to_f64_round</span>(<span class="ident">rug::float::Round::Up</span>))
+    }
+
+    <span class="kw">fn</span> <span class="ident">neg_inf_cast</span>(<span class="ident">v</span>: <span class="ident">Float</span>) -&gt; <span class="ident">Fallible</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="ident">v</span>.<span class="ident">to_f64_round</span>(<span class="ident">rug::float::Round::Down</span>))
+    }
 }
 </code></pre></div>
 </section></div></main><div id="rustdoc-vars" data-root-path="../../../../" data-current-crate="opendp" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.64.0 (a55dd71d5 2022-09-19)" ></div></body></html>
